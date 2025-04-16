@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | FarmLink</title>
+    <link rel="stylesheet" href="register.css">
+</head>
+<body>
+    <body class="registration-page">
+        <div class="background-overlay"></div>
+        <div class="registration-container">
+        <div class="registration-header">
+            <h1>Create a FarmLink Account</h1>
+            <p class="subtitle">Join Uganda's leading livestock trading platform</p>
+        </div>
+
+        <!-- Registration Form -->
+    <form id="registerForm" class="register-form">
+        <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input
+                    type="text"
+                    id="fullName"
+                    name="fullName"
+                    placeholder="Enter your full name"
+                    required
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="userName">Username</label>
+            <input
+                    type="text"
+                    id="userName"
+                    name="userName"
+                    placeholder="Enter your username"
+                    required
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="emailAddress">Email Address</label>
+            <input
+                    type="email"
+                    id="emailAddress"
+                    name="emailAddress"
+                    placeholder="name@example.com"
+                    required
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="phoneNumber">Phone Number (+256)</label>
+            <input
+                    type="tel"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    placeholder="+256 700 123 456"
+                    required
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="location">Location</label>
+            <input
+                    type="text"
+                    id="location"
+                    name="location"
+                    placeholder="Central Region"
+                    required
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter a strong password"
+                    required
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    placeholder="Confirm your password"
+                    required
+            />
+        </div>
+
+        <!-- Terms & Privacy Checkbox -->
+        <div class="form-group checkbox-group">
+            <input
+                    type="checkbox"
+                    id="termsCheckbox"
+                    name="termsCheckbox"
+                    required
+            />
+            <label for="termsCheckbox">
+                I agree to the
+                <a href="#" target="_blank">Terms of Service</a> and
+                <a href="#" target="_blank">Privacy Policy</a>
+            </label>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="submit-btn">Create Account</button>
+    </form>
+        
+        <div class="registration-footer">
+            <p>Already have an account? <a href="login.html">Login</a></p>
+        </div>
+    </div>
+</body>
+</html>

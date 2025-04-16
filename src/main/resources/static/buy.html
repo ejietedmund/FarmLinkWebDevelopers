@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livestock Marketplace</title>
+    <link rel="stylesheet" href="buy.css">
+</head>
+<body>
+<header>
+    <h1>Livestock Marketplace</h1>
+    <p>Buy and sell livestock easily across Uganda</p>
+</header>
+
+<section class="livestock-category" id="cattle">
+    <h2>Cattle</h2>
+    <div class="livestock-container">
+        <div class="livestock-card" onclick="showDetails('Cattle1')">
+            <img src="ankole_cattle.png" alt="Cattle Image">
+            <h3>Friesian Bull</h3>
+            <p class="price">UGX 3,500,000</p>
+            <p class="location">Mbarara, Western Uganda</p>
+            <p class="contact">📞 0700 123 456</p>
+        </div>
+    </div>
+</section>
+
+<section class="livestock-category" id="goats">
+    <h2>Goats</h2>
+    <div class="livestock-container">
+        <div class="livestock-card" onclick="showDetails('Goat1')">
+            <img src="busoga_goat.png" alt="Goat Image">
+            <h3>Boer Goat</h3>
+            <p class="price">UGX 250,000</p>
+            <p class="location">Luwero, Central Uganda</p>
+            <p class="contact">📞 0789 456 789</p>
+        </div>
+    </div>
+</section>
+
+<div id="livestock-modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2 id="modal-title"></h2>
+        <img id="modal-img" src="" alt="">
+        <p id="modal-price"></p>
+        <p id="modal-location"></p>
+        <p id="modal-contact"></p>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

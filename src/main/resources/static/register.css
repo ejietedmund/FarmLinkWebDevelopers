@@ -1,0 +1,403 @@
+:root {
+  --primary: #2e663f;
+  --primary-dark: #1e4b2c;
+  --primary-light: rgba(46, 102, 63, 0.1);
+  --text: #333;
+  --text-light: #666;
+  --border: #ddd;
+  --border-radius: 10px;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Base Styles */
+.registration-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: 
+    linear-gradient(rgba(0, 0, 0, 0.4), 
+    rgba(0, 0, 0, 0.4)),
+    url('bgimage.jpeg') no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+}
+
+/* Background Overlay */
+.background-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(46, 102, 63, 0.2) 0%, rgba(0, 0, 0, 0.1) 100%);
+  z-index: 0;
+}
+
+/* Registration Container */
+.registration-container {
+  width: 100%;
+  max-width: 500px;
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(8px);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 2.5rem;
+  transform: translateY(0);
+  transition: var(--transition);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  z-index: 1;
+  margin: 0 auto; /* Ensures horizontal centering */
+}
+
+/* Rest of your existing CSS remains the same */
+:root {
+  --primary: #2e663f;
+  --primary-dark: #1e4b2c;
+  --primary-light: rgba(46, 102, 63, 0.1);
+  --text: #333;
+  --text-light: #666;
+  --border: #ddd;
+  --border-radius: 10px;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Base Styles */
+.registration-page {
+  min-height: 100vh;
+  background: 
+    linear-gradient(rgba(0, 0, 0, 0.4),
+    url('bgimage.jpeg') no-repeat center center/cover),
+  /* rest of your styles */
+}
+
+.background-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(46, 102, 63, 0.2) 0%, rgba(0, 0, 0, 0.1) 100%);
+  z-index: -1;
+}
+
+/* Registration Container */
+.registration-container {
+  width: 100%;
+  max-width: 500px;
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(8px);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 2.5rem;
+  transform: translateY(0);
+  transition: var(--transition);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.registration-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Header Section */
+.registration-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.registration-header h1 {
+  font-size: 2rem;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.registration-header .subtitle {
+  color: var(--text-light);
+  font-size: 1rem;
+  font-weight: 400;
+  position: relative;
+  display: inline-block;
+}
+
+.registration-header .subtitle::after {
+  content: '';
+  position: absolute;
+  width: 50%;
+  height: 2px;
+  background: var(--primary-light);
+  bottom: -8px;
+  left: 25%;
+}
+
+/* Form Elements */
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+
+.register-form label {
+  display: block;
+  font-weight: 600;
+  color: var(--text);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  transition: var(--transition);
+}
+
+.register-form input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: var(--transition);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.register-form input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+  outline: none;
+}
+
+/* Fancy Floating Labels (Optional) */
+.form-group.floating-label {
+  margin-top: 1.2rem;
+}
+
+.form-group.floating-label label {
+  position: absolute;
+  top: 0.9rem;
+  left: 1rem;
+  background: white;
+  padding: 0 0.3rem;
+  color: var(--text-light);
+  pointer-events: none;
+  transition: var(--transition);
+}
+
+.form-group.floating-label input:focus + label,
+.form-group.floating-label input:not(:placeholder-shown) + label {
+  top: -0.6rem;
+  left: 0.8rem;
+  font-size: 0.75rem;
+  color: var(--primary);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* Toggle Buttons */
+.toggle-container {
+  margin: 1.5rem 0;
+}
+
+.toggle-buttons {
+  display: flex;
+  background: #f5f5f5;
+  border-radius: var(--border-radius);
+  padding: 4px;
+  margin-top: 0.5rem;
+}
+
+.toggle-buttons input[type='radio'] {
+  display: none;
+}
+
+.toggle-buttons label {
+  flex: 1;
+  text-align: center;
+  padding: 0.7rem;
+  cursor: pointer;
+  transition: var(--transition);
+  border-radius: calc(var(--border-radius) - 4px);
+}
+
+.toggle-buttons input[type='radio']:checked + label {
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+}
+
+/* Checkbox Group */
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  margin: 1.2rem 0;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-right: 0.7rem;
+  accent-color: var(--primary);
+  flex-shrink: 0;
+}
+
+.checkbox-group label {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--text-light);
+  font-weight: normal;
+}
+
+.checkbox-group a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition);
+  border-bottom: 1px dotted transparent;
+}
+
+.checkbox-group a:hover {
+  color: var(--primary-dark);
+  border-bottom-color: var(--primary);
+}
+
+/* Submit Button */
+.submit-btn {
+  width: 100%;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: 1.1rem;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-top: 0.5rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.submit-btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(46, 102, 63, 0.3);
+}
+
+/* Footer */
+.registration-footer {
+  text-align: center;
+  margin-top: 2rem;
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+.registration-footer a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transition);
+  position: relative;
+  padding: 0.2rem 0;
+}
+
+.registration-footer a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background: var(--primary);
+  transition: var(--transition);
+}
+
+.registration-footer a:hover {
+  color: var(--primary-dark);
+}
+
+.registration-footer a:hover::after {
+  width: 100%;
+}
+
+/* Loading Animation */
+.submit-btn.loading {
+  position: relative;
+  color: transparent;
+  pointer-events: none;
+}
+
+.submit-btn.loading::after {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 3px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Password Strength Meter */
+.password-strength {
+  margin-top: 0.3rem;
+  height: 4px;
+  background: #eee;
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.strength-meter {
+  height: 100%;
+  width: 0%;
+  background: red;
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+.strength-text {
+  font-size: 0.75rem;
+  color: var(--text-light);
+  margin-top: 0.3rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.strength-text span {
+  font-weight: 600;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 640px) {
+  .registration-page {
+    padding: 1rem;
+  }
+  
+  .registration-container {
+    padding: 1.8rem;
+  }
+  
+  .registration-header h1 {
+    font-size: 1.6rem;
+  }
+  
+  .submit-btn {
+    padding: 1rem;
+  }
+}
+
+/* Remove modal-related styles */
+.modal-overlay, .modal-container, #openModalBtn {
+  display: none;
+}

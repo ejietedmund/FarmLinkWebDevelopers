@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>About FarmLink</title>
+    <link rel="stylesheet" href="about.css" />
+    <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+<header>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+          <a href="index.html" class="logo">FarmLink</a>
+          <ul class="nav-links">
+            <li class="dropdown">
+              <a href="browse_livestock.html" class="dropbtn">Browse Livestock <span class="arrow">&#9662;</span></a>
+              <ul class="dropdown-content">
+                <li><a href="#">Cattle</a></li>
+                <li><a href="#">Goats</a></li>
+                <li><a href="#">Sheep</a></li>
+                <li><a href="#">Pigs</a></li>
+                <li><a href="#">Poultry</a></li>
+              </ul>
+            </li>
+            <li><a href="sell.html" class="sell-nav-button">Sell Livestock</a></li>
+            <li><a href="partners.html">Partners</a></li>
+            <li><a href="support_device.html">Support & Advice</a></li>
+          </ul>
+          <div class="nav-actions">
+            <label>
+              <input type="text" placeholder="Search for livestock (e.g calves, pigs)" class="search-bar">
+            </label>
+            <a href="about.html" class="nav-button">About Us</a> 
+            <a href="login.html" class="nav-button">Login</a>
+            <a href="register.html" class="nav-button">Register</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+<!-- Main Container -->
+<div class="about-container">
+    <h1>About FarmLink</h1>
+
+    <!-- Our Mission -->
+    <section class="mission">
+        <h2>Our Mission</h2>
+        <p>
+            FarmLink’s mission is to revolutionize livestock trading in Uganda by creating a transparent,
+            efficient marketplace that connects local farmers with buyers, maximizing profits for farmers
+            while ensuring high-quality livestock for consumers.
+        </p>
+    </section>
+
+    <!-- How FarmLink Works -->
+    <section class="how-it-works">
+        <h2>How FarmLink Works</h2>
+        <div class="how-it-works-cards">
+            <div class="hiw-card">
+                <h3>Register</h3>
+                <p>Create an account to either sell or buy livestock on the platform.</p>
+            </div>
+            <div class="hiw-card">
+                <h3>List or Browse</h3>
+                <p>Post livestock for sale or browse available livestock from other farmers.</p>
+            </div>
+            <div class="hiw-card">
+                <h3>Connect & Trade</h3>
+                <p>Communicate directly with farmers or buyers, and finalize transactions securely.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Stories -->
+    <section class="success-stories">
+        <h2>Success Stories</h2>
+
+        <div class="story-card">
+            <h3>Kobusinge Ritah– Dairy Farmer, Mbarara</h3>
+            <p>
+                “FarmLink truly made my entire operation run so smoothly. I can now easily tap into
+                buyers looking for high-quality dairy cows. My revenue has gone up by 25% in just a few months!”
+            </p>
+        </div>
+
+        <div class="story-card">
+            <h3>Namuyiga Joanita– Poultry Farmer, Kampala</h3>
+            <p>
+                “I needed a reliable way to reach a wider market quickly. FarmLink helped me connect
+                with multiple buyers across the country. My poultry business has never been better!”
+            </p>
+        </div>
+
+        <div class="story-card">
+            <h3>Bwanika Ratibu – Restaurant Owner, Jinja</h3>
+            <p>
+                “Finding quality livestock for my restaurants was always a challenge. With FarmLink,
+                I have more consistent options, and the delivery process is so much smoother now.”
+            </p>
+        </div>
+    </section>
+</div>
+
+<footer>
+    <div class="footer-content">
+        <!-- Column 1: FarmLink Info -->
+        <div class="footer-column">
+            <h3>FarmLink</h3>
+            <p>
+                Connecting Ugandan farmers directly with buyers to create a more efficient livestock marketplace.
+            </p>
+        </div>
+
+        <!-- Column 2: Quick Links -->
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Browse Listings</a></li>
+                <li><a href="#">Partner Farms</a></li>
+                <li><a href="#">Terms & Conditions</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+            </ul>
+        </div>
+
+        <!-- Column 3: Support & Advice -->
+        <div class="footer-column">
+            <h3>Support & Advice</h3>
+            <ul>
+                <li><a href="#">Livestock Diseases</a></li>
+                <li><a href="#">Breeding Tips</a></li>
+                <li><a href="#">Feeding Guidelines</a></li>
+                <li><a href="#">Market Prices</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Contact Support</a></li>
+            </ul>
+        </div>
+
+        <!-- Column 4: Subscribe -->
+        <div class="footer-column">
+            <h3>Subscribe</h3>
+            <p>Get the latest livestock listings and farming advice delivered to your inbox.</p>
+            <form class="subscribe-form">
+                <input type="email" placeholder="Your email..." required>
+                <button type="submit">Join</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bottom row: copyright + policy -->
+    <div class="footer-bottom">
+        <p>&copy; FarmLink 2025. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#">Terms</a>
+            <a href="#">Privacy</a>
+            <a href="#">Cookies</a>
+        </div>
+    </div>
+</footer>
+
+<!-- JavaScript -->
+<script src="about.js"></script>
+</body>
+</html>

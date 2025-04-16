@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Support & Advice</title>
+    <link rel="stylesheet" href="support_advice.css" />
+    <link rel="stylesheet" href="index.css" />
+</head>
+
+<body>
+
+<header>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+          <a href="index.html" class="logo">FarmLink</a>
+          <ul class="nav-links">
+            <li class="dropdown">
+              <a href="browse_livestock.html" class="dropbtn">Browse Livestock <span class="arrow">&#9662;</span></a>
+              <ul class="dropdown-content">
+                <li><a href="#">Cattle</a></li>
+                <li><a href="#">Goats</a></li>
+                <li><a href="#">Sheep</a></li>
+                <li><a href="#">Pigs</a></li>
+                <li><a href="#">Poultry</a></li>
+              </ul>
+            </li>
+            <li><a href="sell.html" class="sell-nav-button">Sell Livestock</a></li>
+            <li><a href="partners.html">Partners</a></li>
+            <li><a href="support_device.html">Support & Advice</a></li>
+          </ul>
+          <div class="nav-actions">
+            <label>
+              <input type="text" placeholder="Search for livestock (e.g calves, pigs)" class="search-bar">
+            </label>
+            <a href="about.html" class="nav-button">About Us</a> 
+            <a href="login.html" class="nav-button">Login</a>
+            <a href="register.html" class="nav-button">Register</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+<!-- Page Container (excluding header & footer) -->
+<div class="page-container">
+
+    <!-- Title -->
+    <h1>Support & Advice</h1>
+
+    <!-- Tabs -->
+    <div class="tabs">
+        <button class="tab-button active" data-tab="advice">Farming Advice</button>
+        <button class="tab-button" data-tab="diseases">Common Diseases</button>
+        <button class="tab-button" data-tab="contact">Contact Support</button>
+    </div>
+
+    <!-- Tab Content: Farming Advice -->
+    <div class="tab-content active" id="advice">
+        <h2>Livestock Farming Tips</h2>
+        <div class="tips-container">
+            <!-- Tip 1 -->
+            <div class="tip-card">
+                <h3>Proper Nutrition</h3>
+                <p>Ensure your livestock has a balanced nutrition with adequate protein, energy, vitamins, and minerals.</p>
+            </div>
+            <!-- Tip 2 -->
+            <div class="tip-card">
+                <h3>Clean Water Supply</h3>
+                <p>Always provide clean, fresh water for your animals. A cow can drink up to 50 liters per day.</p>
+            </div>
+            <!-- Tip 3 -->
+            <div class="tip-card">
+                <h3>Regular Health Checks</h3>
+                <p>Monitor animals regularly for signs of illness or disease. Early detection of health issues can prevent outbreaks.</p>
+            </div>
+            <!-- Tip 4 -->
+            <div class="tip-card">
+                <h3>Proper Housing</h3>
+                <p>Keep housing areas hygienic with adequate ventilation, flooring, and protection from extreme weather.</p>
+            </div>
+            <!-- Tip 5 -->
+            <div class="tip-card">
+                <h3>Vaccination Schedule</h3>
+                <p>Follow a recommended vaccination program by your local veterinarian to protect animals from common diseases.</p>
+            </div>
+            <!-- Tip 6 (highlighted) -->
+            <div class="tip-card highlight">
+                <h3>Want more personalized advice?</h3>
+                <p>
+                    Our team of agricultural experts is always available for your specific farming needs.
+                    Contact us through the form in the <strong>Contact Support</strong> tab or call us directly at <strong>+256 700 123 456</strong>.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab Content: Common Diseases -->
+    <div class="tab-content" id="diseases">
+        <h2>Common Livestock Diseases</h2>
+        <p>Information on prevalent livestock diseases will be displayed here. You can list prevention tips, symptoms, and recommended treatments.</p>
+        <!-- Example placeholders -->
+        <ul>
+            <li>Foot and Mouth Disease (FMD)</li>
+            <li>Newcastle Disease (poultry)</li>
+            <li>Brucellosis</li>
+            <li>Swine Fever</li>
+            <li>Avian Influenza</li>
+        </ul>
+    </div>
+
+    <!-- Tab Content: Contact Support -->
+    <div class="tab-content" id="contact">
+        <h2>Contact Our Support Team</h2>
+        <p>Need personalized farming advice or have questions about your livestock?</p>
+        <form class="contact-form">
+            <label for="contactName">Full Name</label>
+            <input type="text" id="contactName" name="contactName" placeholder="Your Name" required>
+
+            <label for="contactEmail">Email</label>
+            <input type="email" id="contactEmail" name="contactEmail" placeholder="example@domain.com" required>
+
+            <label for="contactMessage">Message</label>
+            <textarea id="contactMessage" name="contactMessage" rows="4" placeholder="How can we help you?" required></textarea>
+
+            <button type="submit">Send</button>
+        </form>
+        <p>Or call us directly at <strong>+256 700 123 456</strong>.</p>
+    </div>
+
+    <!-- About FarmLink Section (merged from second screenshot) -->
+    <section class="about-farmlink">
+        <h2>About FarmLink</h2>
+
+        <div class="mission">
+            <h3>Our Mission</h3>
+            <p>
+                FarmLink’s mission is to revolutionize livestock trading in Uganda by creating a transparent, efficient marketplace that connects local farmers with buyers, maximizing profits for farmers while ensuring high-quality livestock for consumers.
+            </p>
+        </div>
+
+        <div class="how-it-works">
+            <h3>How FarmLink Works</h3>
+            <ol>
+                <li><strong>Register:</strong> Create an account to either sell or buy livestock on the platform.</li>
+                <li><strong>List or Browse:</strong> Post livestock for sale or browse available livestock.</li>
+                <li><strong>Connect & Trade:</strong> Communicate directly with farmers or buyers and finalize transactions securely.</li>
+            </ol>
+        </div>
+
+        <div class="success-stories">
+            <h3>Success Stories</h3>
+            <div class="story">
+                <h4>Jacob Mulondo – Dairy Farmer, Mbarara</h4>
+                <p>
+                    “FarmLink truly made my entire operation run so smoothly. I can now easily tap buyers...”
+                </p>
+            </div>
+            <div class="story">
+                <h4>Sarah Nantongo – Poultry Farmer, Kampala</h4>
+                <p>
+                    “FarmLink helped me reach a wider market in record time...”
+                </p>
+            </div>
+            <div class="story">
+                <h4>Daniel Okello – Restaurant Owner, Jinja</h4>
+                <p>
+                    “Finding quality livestock for my restaurants was always a challenge. With FarmLink, I have more options...”
+                </p>
+            </div>
+        </div>
+
+        <div class="benefits">
+            <h3>Benefits to Uganda’s Agricultural Sector</h3>
+            <ul>
+                <li>Empowering small-scale farmers with direct market access</li>
+                <li>Reducing price volatility by creating transparent transactions</li>
+                <li>Improving animal welfare and farming best practices</li>
+                <li>Enhancing food security and community health through reliable sourcing</li>
+                <li>Facilitating knowledge transfer between farmers across regions</li>
+            </ul>
+        </div>
+    </section>
+
+</div> <!-- End of page-container -->
+<footer>
+    <div class="footer-content">
+        <!-- Column 1: FarmLink Info -->
+        <div class="footer-column">
+            <h3>FarmLink</h3>
+            <p>
+                Connecting Ugandan farmers directly with buyers to create a more efficient livestock marketplace.
+            </p>
+        </div>
+
+        <!-- Column 2: Quick Links -->
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="browse_livestock.html">Browse Listings</a></li>
+                <li><a href="partners.html">Partner Farms</a></li>
+                <li><a href="">Terms & Conditions</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+            </ul>
+        </div>
+
+        <!-- Column 3: Support & Advice -->
+        <div class="footer-column">
+            <h3>Support & Advice</h3>
+            <ul>
+                <li><a href="#">Livestock Diseases</a></li>
+                <li><a href="#">Breeding Tips</a></li>
+                <li><a href="#">Feeding Guidelines</a></li>
+                <li><a href="#">Market Prices</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Contact Support</a></li>
+            </ul>
+        </div>
+
+        <!-- Column 4: Subscribe -->
+        <div class="footer-column">
+            <h3>Subscribe</h3>
+            <p>Get the latest livestock listings and farming advice delivered to your inbox.</p>
+            <form class="subscribe-form">
+                <input type="email" placeholder="Your email..." required>
+                <button type="submit">Join</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bottom row: copyright + policy -->
+    <div class="footer-bottom">
+        <p>&copy; FarmLink 2025. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#">Terms</a>
+            <a href="#">Privacy</a>
+            <a href="#">Cookies</a>
+        </div>
+    </div>
+</footer>
+
+<!-- JavaScript -->
+<script src="support_advice.js"></script>
+</body>
+</html>

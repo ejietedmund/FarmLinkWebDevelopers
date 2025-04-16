@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell Livestock</title>
+    <link rel="stylesheet" href="sell.css">
+</head>
+<body>
+<div class="sell-container">
+    <div class="sell-form">
+        <h2>Upload Livestock for Sale</h2>
+        <form id="livestockForm">
+            <label for="name">Seller's Name:</label>
+            <input type="text" id="name" placeholder="Full Names" required>
+
+            <label for="imageFile">Upload Image:</label>
+            <input type="file" id="imageFile" accept="image/*" required>
+            <!--  input type to store the imageUrl          -->
+            <label for="imageUrl">Image Url:</label>
+            <input type="text" id="imageUrl" name = "imageUrl" readonly>
+            <!--     previewing the saved image       -->
+            <img id="previewImage" alt="animal image" style = "display:none; height:150px; width:150px" src="">
+
+            <label for="price">Price (UGX):</label>
+            <input type="number" id="price" min="0" required>
+
+            <label for="type">Animal Type:</label>
+            <select id="type"  name="Animal type"  required>
+                <option value = "goat">Goat</option>
+                <option value = "cattle">Cattle</option>
+                <option value = "sheep">Sheep</option>
+                <option value = "poultry">Poultry</option>
+                <option value = "others">Others...</option>
+                <option value = "goat">Goat</option>
+                <option value = "goat">Goat</option>
+            </select>
+
+            <label for="description">Short Description:</label>
+            <textarea id="description" placeholder="Enter a brief description" required></textarea>
+
+            <label for="location">Location:</label>
+            <input type="text" id="location" placeholder="Enter location" required>
+
+            <label for="contact">Phone Contact:</label>
+            <input type="tel" id="contact" placeholder="Enter phone number" required>
+            <button type="button" id= "submit" class="upload-btn" onclick="passDataToSpring()">Upload</button>
+        </form>
+    </div>
+</div>
+<script >
+    document.getElementById("imageFile").addEventListener("change",function(event){
+        const file = event.target.files[0];
+        if (file){
+            // generate a temporary url
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64String = e.target.result; // Get Base64 encoded string
+
+                // Assigning the base64 string to the preview image
+                const preview = document.getElementById("previewImage");
+                preview.src = base64String;
+                preview.style.display = "block";
+
+                // Storing base64 string as the image URL (for backend submission)
+                document.getElementById("imageUrl").value = base64String;
+            };
+            reader.readAsDataURL(file);
+
+        } else{
+            alert("No such file url exists");
+            showToast("No such file!!!");
+        }
+    });
+    // function for passing the sell.html data to the springboot database backend.
+    async function passDataToSpring(){
+        const type = document.getElementById("type").value;
+        const phone = document.getElementById("contact").value;
+        const description = document.getElementById("description").value;
+        const price = document.getElementById("price").value;
+        const location = document.getElementById("location").value;
+        const imageUrl = document.getElementById("imageUrl").value;
+        alert("image Url is:"+imageUrl);
+        const name = document.getElementById("name").value;
+        const imageFile = document.getElementById("imageFile");
+
+        if(!imageFile.files.length){
+            alert("please upload your image");
+            return;
+        }
+        const requestData = {
+            type: type,
+            name: name,
+            imageUrl: imageUrl, // Send Base64 string to backend
+            location: location,
+            price: price,
+            contact: phone,
+            description: description
+        };
+
+        try {
+            const response = await fetch("http://localhost:8090/livestock/save",{
+                method:"POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(requestData)
+            });
+            if(response.ok){
+                alert("passing data to springboot is sucessful");
+            } else {
+                throw new Error("Failed to save data");
+            }
+        } catch (error){
+            console.error("Error",error);
+            alert("Failed to submit the livestock data successfully");
+        }
+
+}
+
+</script>
+
+
+</body>
+</html>

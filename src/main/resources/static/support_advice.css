@@ -1,0 +1,196 @@
+/* Reset & Global */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+/* Page Container */
+.page-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 30px auto;
+  padding-bottom: 50px; /* Extra space at bottom */
+}
+
+/* Title */
+.page-container h1 {
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #2e663f;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #e0e0e0;
+  color: #333;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.tab-button:hover {
+  background-color: #ccc;
+}
+
+.tab-button.active {
+  background-color: #2e663f;
+  color: white;
+}
+
+/* Tab Content */
+.tab-content {
+  display: none;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Farming Advice Tips */
+.tips-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.tip-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 15px;
+  width: 300px;
+  flex: 0 0 auto;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.tip-card h3 {
+  margin-bottom: 8px;
+  color: #2e663f;
+  font-size: 18px;
+}
+
+.tip-card p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #555;
+}
+
+.tip-card.highlight {
+  border-left: 5px solid #2e663f;
+}
+
+/* Common Diseases Section */
+#diseases ul {
+  list-style: disc inside;
+  margin-top: 15px;
+  color: #555;
+}
+
+#diseases ul li {
+  margin-bottom: 8px;
+}
+
+/* Contact Support Form */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.contact-form label {
+  font-weight: bold;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.contact-form button {
+  align-self: start;
+  background-color: #2e663f;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* About FarmLink Section */
+.about-farmlink {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.about-farmlink h2 {
+  color: #2e663f;
+  margin-bottom: 20px;
+}
+
+.about-farmlink h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #2e663f;
+}
+
+.mission p,
+.how-it-works ol,
+.success-stories .story p,
+.benefits ul {
+  color: #555;
+  line-height: 1.5;
+}
+
+.how-it-works ol {
+  margin-left: 20px;
+}
+
+.success-stories .story {
+  margin-bottom: 15px;
+}
+
+.benefits ul {
+  list-style: disc inside;
+  margin-top: 10px;
+}
+
+.benefits ul li {
+  margin-bottom: 6px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .tips-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .tip-card {
+    width: 100%;
+  }
+}

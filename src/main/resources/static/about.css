@@ -1,0 +1,132 @@
+/* Basic Reset & Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+/* Main Container */
+.about-container {
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+/* Page Title */
+.about-container > h1 {
+  font-size: 28px;
+  color: #2e663f;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+/* Mission Section */
+.mission {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.mission h2 {
+  font-size: 20px;
+  color: #2e663f;
+  margin-bottom: 10px;
+}
+
+.mission p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* How It Works Section */
+.how-it-works {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.how-it-works h2 {
+  font-size: 20px;
+  color: #2e663f;
+  margin-bottom: 15px;
+}
+
+.how-it-works-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.hiw-card {
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  flex: 1 1 200px;
+  min-width: 200px;
+  padding: 15px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.hiw-card h3 {
+  color: #2e663f;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.hiw-card p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #555;
+}
+
+/* Success Stories Section */
+.success-stories {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.success-stories h2 {
+  font-size: 20px;
+  color: #2e663f;
+  margin-bottom: 15px;
+}
+
+.story-card {
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.story-card h3 {
+  color: #2e663f;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.story-card p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #555;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .how-it-works-cards {
+    flex-direction: column;
+  }
+}
