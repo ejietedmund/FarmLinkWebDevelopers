@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="description" content="FarmLink - View livestock details for buying in Uganda.">
+    <meta name="keywords" content="FarmLink, livestock, Uganda, buy, cattle, goats, sheep, pigs, poultry">
+    <meta name="author" content="FarmLink Team">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmLink - Livestock Details</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+<header>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">FarmLink</a>
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="browse_livestock.html" class="dropbtn active-parent">Browse Livestock <span class="arrow">▼</span></a>
+                    <ul class="dropdown-content">
+                        <li><a href="cattle.html">Cattle</a></li>
+                        <li><a href="goats.html">Goats</a></li>
+                        <li><a href="sheep.html">Sheep</a></li>
+                        <li><a href="pigs.html">Pigs</a></li>
+                        <li><a href="poultry.html">Poultry</a></li>
+                    </ul>
+                </li>
+                <li><a href="sell.html" class="sell-nav-button">Sell Livestock</a></li>
+                <li><a href="partners.html">Partners</a></li>
+                <li><a href="support_device.html">Support & Advice</a></li>
+            </ul>
+            <div class="nav-actions" id="navActions">
+                <div class="search-container">
+                    <input type="text" class="search-bar" placeholder="Search for livestock (e.g. calves, pigs)" id="searchInput">
+                    <button class="search-button" id="searchButton"><i class="fas fa-search"></i></button>
+                </div>
+                <a href="about.html" class="nav-button">About Us</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<section class="livestock-details" id="livestockDetails">
+    <h2 id="livestockTitle"></h2>
+    <div class="details-container">
+        <div class="image-gallery">
+            <img id="mainImage" src="" alt="Livestock Image" onerror="this.src='https://via.placeholder.com/400?text=No+Image'">
+        </div>
+        <div class="details-info">
+            <p class="type"><strong>Type:</strong> <span id="livestockType"></span></p>
+            <p class="location"><i class="fas fa-map-marker-alt"></i> <span id="livestockLocation"></span></p>
+            <p class="price"><strong>Price:</strong> UGX <span id="livestockPrice"></span></p>
+            <p class="contact"><strong>Contact:</strong> <span id="livestockContact"></span></p>
+            <p class="description"><strong>Description:</strong> <span id="livestockDescription"></span></p>
+            <div class="metadata">
+                <span><i class="fas fa-calendar-alt"></i> Listed <span id="listedDate"></span></span>
+                <span><i class="fas fa-check-circle"></i> Homebred</span>
+            </div>
+            <div class="action-buttons">
+                <button class="contact-button"><i class="fas fa-envelope"></i> Contact Owner</button>
+                <button class="buy-button"><i class="fas fa-shopping-cart"></i> Buying Options</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="index.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const navActions = document.getElementById('navActions');
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user && user.loggedIn) {
+            const logoutButton = document.createElement('a');
+            logoutButton.href = '#';
+            logoutButton.className = 'nav-button';
+            logoutButton.textContent = 'Logout';
+            logoutButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('user');
+                localStorage.removeItem('rememberedUsername');
+                window.location.href = 'index.html';
+            });
+            navActions.appendChild(logoutButton);
+        } else {
+            const loginButton = document.createElement('a');
+            loginButton.href = 'login.html';
+            loginButton.className = 'nav-button';
+            loginButton.textContent = 'Login';
+            navActions.appendChild(loginButton);
+
+            const registerButton = document.createElement('a');
+            registerButton.href = 'register.html';
+            registerButton.className = 'nav-button';
+            registerButton.textContent = 'Register';
+            navActions.appendChild(registerButton);
+        }
+
+        if (!user || !user.loggedIn) {
+            localStorage.setItem('redirectAfterLogin', window.location.href);
+            window.location.href = 'login.html';
+            return;
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const livestockId = urlParams.get('id');
+
+        if (!livestockId) {
+            document.getElementById('livestockDetails').innerHTML = '<p>Error: No livestock ID provided.</p>';
+            return;
+        }
+
+        async function fetchLivestockDetails() {
+            try {
+                const response = await fetch(`http://localhost:8090/livestock/all`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const livestockList = await response.json();
+                const livestock = livestockList.find(item => item.id == livestockId);
+
+                if (!livestock) {
+                    document.getElementById('livestockDetails').innerHTML = '<p>Livestock not found.</p>';
+                    return;
+                }
+
+                document.getElementById('livestockTitle').textContent = `For Sale: ${livestock.name}`;
+                document.getElementById('livestockType').textContent = livestock.type || 'N/A';
+                document.getElementById('livestockLocation').textContent = livestock.location || 'Unknown';
+                document.getElementById('livestockPrice').textContent = livestock.price.toLocaleString();
+                document.getElementById('livestockContact').textContent = livestock.contact || 'N/A';
+                document.getElementById('livestockDescription').textContent = livestock.description || 'No description available';
+
+                document.getElementById('listedDate').textContent = 'a day ago';
+
+                const imageName = livestock.imagePath ? livestock.imagePath.split('/').pop() : 'placeholder.jpg';
+                const imageUrl = `http://localhost:8090/livestock/images/${imageName}`;
+                document.getElementById('mainImage').src = imageUrl;
+            } catch (error) {
+                console.error('Error fetching livestock details:', error);
+                document.getElementById('livestockDetails').innerHTML = '<p>Error loading livestock details. Please try again later.</p>';
+            }
+        }
+
+        fetchLivestockDetails();
+    });
+</script>
+</body>
+</html>

@@ -12,18 +12,17 @@
 </head>
 <body>
 <header>
-    <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
-            <!-- Logo -->
             <a href="index.html" class="logo">FarmLink</a>
-            <!-- Navigation Links -->
             <ul class="nav-links">
                 <li class="dropdown">
-                    <a href="#" class="dropbtn active-parent">Browse Livestock <span class="arrow">▼</span></a>
+                    <a href="browse_livestock.html" class="dropbtn active-parent">Browse Livestock <span class="arrow">▼</span></a>
                     <ul class="dropdown-content">
-                        <li><a href="index.html" class="active" aria-current="page">All</a></li>
                         <li><a href="cattle.html">Cattle</a></li>
+                        <li><a href="goats.html">Goats</a></li>
+                        <li><a href="sheep.html">Sheep</a></li>
+                        <li><a href="pigs.html">Pigs</a></li>
                         <li><a href="poultry.html">Poultry</a></li>
                     </ul>
                 </li>
@@ -31,16 +30,21 @@
                 <li><a href="partners.html">Partners</a></li>
                 <li><a href="support_device.html">Support & Advice</a></li>
             </ul>
-            <!-- Navigation Actions -->
-            <div class="nav-actions">
-                <input type="text" class="search-bar" placeholder="Search for livestock (e.g. calves, pigs)">
+            <div class="nav-actions" id="navActions">
+                <div class="search-container">
+                    <input type="text" class="search-bar" placeholder="Search for livestock (e.g. calves, pigs)" id="searchInput">
+                    <button class="search-button" id="searchButton"><i class="fas fa-search"></i></button>
+                </div>
                 <a href="about.html" class="nav-button">About Us</a>
-                <a href="login.html" class="nav-button">Login</a>
-                <a href="register.html" class="nav-button">Register</a>
             </div>
         </div>
     </nav>
 </header>
+
+<section class="search-results" id="searchResults" style="display: none;">
+    <h2>Search Results</h2>
+    <div class="livestock-container" id="searchResultsContainer"></div>
+</section>
 
 <section class="hero">
     <h1>Buy and Sell Livestock Easily with FarmLink</h1>
@@ -50,115 +54,52 @@
         <a href="sell.html"><button class="sell">Sell Your Livestock</button></a>
     </div>
 </section>
+
 <section class="categories">
     <h2>Browse Livestock Categories</h2>
     <div class="category-list">
-        <div class="category">
-            <i class="fa-solid fa-cow"></i>
-            <h3>Cattle</h3>
-            <p>Explore various breeds of cattle suitable for dairy and meat production.</p>
-        </div>
-        <div class="category">
-            <i class="fa-solid fa-horse"></i>
-            <h3>Goats</h3>
-            <p>Discover different goat breeds ideal for milk, meat, and fiber.</p>
-        </div>
-        <div class="category">
-            <i class="fa-solid fa-paw"></i>
-            <h3>Sheep</h3>
-            <p>Find sheep breeds perfect for wool and meat production.</p>
-        </div>
-        <div class="category">
-            <i class="fa-solid fa-piggy-bank"></i>
-            <h3>Pigs</h3>
-            <p>Browse pig breeds known for quality pork production.</p>
-        </div>
-        <div class="category">
-            <i class="fa-solid fa-feather"></i>
-            <h3>Poultry</h3>
-            <p>Check out various poultry breeds for eggs and meat.</p>
-        </div>
-        <div class="category">
-            <i class="fa-solid fa-ellipsis"></i>
-            <h3>Other</h3>
-            <p>Explore other livestock options available for farming.</p>
-        </div>
+        <a href="cattle.html" class="category-link">
+            <div class="category">
+                <i class="fa-solid fa-cow"></i>
+                <h3>Cattle</h3>
+                <p>Explore various breeds of cattle suitable for dairy and meat production.</p>
+            </div>
+        </a>
+        <a href="goats.html" class="category-link">
+            <div class="category">
+                <i class="fa-solid fa-horse"></i>
+                <h3>Goats</h3>
+                <p>Discover different goat breeds ideal for milk, meat, and fiber.</p>
+            </div>
+        </a>
+        <a href="sheep.html" class="category-link">
+            <div class="category">
+                <i class="fa-solid fa-paw"></i>
+                <h3>Sheep</h3>
+                <p>Find sheep breeds perfect for wool and meat production.</p>
+            </div>
+        </a>
+        <a href="pigs.html" class="category-link">
+            <div class="category">
+                <i class="fa-solid fa-piggy-bank"></i>
+                <h3>Pigs</h3>
+                <p>Browse pig breeds known for quality pork production.</p>
+            </div>
+        </a>
+        <a href="poultry.html" class="category-link">
+            <div class="category">
+                <i class="fa-solid fa-feather"></i>
+                <h3>Poultry</h3>
+                <p>Check out various poultry breeds for eggs and meat.</p>
+            </div>
+        </a>
     </div>
 </section>
 
 <section class="featured">
     <h2>Featured Livestock</h2>
     <div class="livestock-container">
-        <div class="livestock-card">
-            <img src="http://localhost:8090/api/images/poultry1.jpeg" alt="Poultry">
-            <h3>Hens</h3>
-            <p class="price">UGX 30,000</p>
-            <p class="location">Mbarara, Western Uganda</p>
-            <p class="contact">📞 0700 123 456</p>
-        </div>
-        <div class="livestock-card">
-            <img src="http://localhost:8090/api/images/ankole_cattle.png" alt="Friesian Bull">
-            <h3>Friesian Bull</h3>
-            <p class="price">UGX 1,500,000</p>
-            <p class="location">Mbarara, Western Uganda</p>
-            <p class="contact">📞 0741 714 496</p>
-        </div>
-        <div class="livestock-card">
-            <img src="http://localhost:8090/api/images/sheep3.jpeg" alt="White sheep">
-            <h3>White sheep</h3>
-            <p class="price">UGX 350,000</p>
-            <p class="location">Bushenyi, Western Uganda</p>
-            <p class="contact">📞 0707 123 456</p>
-        </div>
-        <div class="livestock-card">
-            <img src="http://localhost:8090/api/images/sheep1.jpeg" alt="Sheep">
-            <h3>Eastern Sheep</h3>
-            <p class="price">UGX 180,000</p>
-            <p class="location">Iganga, Eastern Uganda</p>
-            <p class="contact">📞 0701 573 456</p>
-        </div>
-        <div class="livestock-card">
-            <img src="http://localhost:8090/api/images/sheep2.jpg" alt="Sheep">
-            <h3>West Niler Sheep</h3>
-            <p class="price">UGX 200,000</p>
-            <p class="location">Kasese, Western Uganda</p>
-            <p class="contact">📞 0781 789 456</p>
-        </div>
-        <div class="livestock-card">
-            <img src="http://localhost:8090/api/images/ducks1.jpeg" alt="Poultry">
-            <h3>Young duck</h3>
-            <p class="price">UGX 30,000</p>
-            <p class="location">Soroti, Eastern Uganda</p>
-            <p class="contact">📞 0768 908 456</p>
-        </div>
-        <div class="livestock-card">
-            <img src="http://localhost:8090/api/images/goat2.jpeg" alt="Goat">
-            <h3>Chinchilla Goat</h3>
-            <p class="price">UGX 170,000</p>
-            <p class="location">Mbarara, Western Uganda</p>
-            <p class="contact">📞 0783 949 171</p>
-        </div>
-        <div class="livestock-card">
-            <img src="http://localhost:8090/api/images/busoga_goat.png" alt="Goat">
-            <h3>Busoga Goat</h3>
-            <p class="price">UGX 250,000</p>
-            <p class="location">Jinja, Eastern Uganda</p>
-            <p class="contact">📞 0779 123 796</p>
-        </div>
-        <div class="livestock-card">
-            <img src="http://localhost:8090/api/images/guinea_fowl1.jpeg" alt="Poultry">
-            <h3>African Guinea Fowl</h3>
-            <p class="price">UGX 50,000</p>
-            <p class="location">Mbarara, Western Uganda</p>
-            <p class="contact">📞 0765 583 876</p>
-        </div>
-        <div class="livestock-card">
-            <img src="http://localhost:8090/api/images/goat1.jpeg" alt="Goat">
-            <h3>Buganda Goat</h3>
-            <p class="price">UGX 354,000</p>
-            <p class="location">Masaka, Central Uganda</p>
-            <p class="contact">📞 0706 453 456</p>
-        </div>
+        <!-- Livestock cards will be populated dynamically -->
     </div>
 </section>
 
@@ -190,15 +131,12 @@
 
 <footer>
     <div class="footer-content">
-        <!-- Column 1: FarmLink Info -->
         <div class="footer-column">
             <h3>FarmLink</h3>
             <p>
                 Connecting Ugandan farmers directly with buyers to create a more efficient livestock marketplace.
             </p>
         </div>
-
-        <!-- Column 2: Quick Links -->
         <div class="footer-column">
             <h3>Quick Links</h3>
             <ul>
@@ -209,8 +147,6 @@
                 <li><a href="#">Privacy Policy</a></li>
             </ul>
         </div>
-
-        <!-- Column 3: Support & Advice -->
         <div class="footer-column">
             <h3>Support & Advice</h3>
             <ul>
@@ -222,8 +158,6 @@
                 <li><a href="#">Contact Support</a></li>
             </ul>
         </div>
-
-        <!-- Column 4: Subscribe -->
         <div class="footer-column">
             <h3>Subscribe</h3>
             <p>Get the latest livestock listings and farming advice delivered to your inbox.</p>
@@ -233,8 +167,6 @@
             </form>
         </div>
     </div>
-
-    <!-- Bottom row: copyright + policy -->
     <div class="footer-bottom">
         <p>© FarmLink 2025. All rights reserved.</p>
         <div class="footer-links">
@@ -245,29 +177,8 @@
     </div>
 </footer>
 
-<script src="index.js">
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-        const navLinks = document.querySelectorAll('.nav-links a, .nav-actions a');
-
-        navLinks.forEach(link => {
-            const href = link.getAttribute('href');
-            if (href === currentPath) {
-                link.classList.add('active');
-                // If the link is inside a dropdown, add active-parent to the dropbtn
-                const dropdown = link.closest('.dropdown');
-                if (dropdown) {
-                    const dropbtn = dropdown.querySelector('.dropbtn');
-                    if (dropbtn) {
-                        dropbtn.classList.add('active-parent');
-                    }
-                }
-            }
-        });
-    });
-
-</script>
-
+<script src="index.js"></script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93452a8e6fabb0cd',t:'MTc0NTMyNTM4MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9345390e4bcdbade',t:'MTc0NTMyNTk3NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>

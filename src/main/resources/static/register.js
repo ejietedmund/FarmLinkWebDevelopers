@@ -29,7 +29,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
     }
 
     try {
-        const response = await fetch('http://localhost:8081/api/auth/register', {
+        const response = await fetch('http://localhost:8090/api/auth/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
@@ -45,7 +45,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
         messageDiv.textContent = result;
         if (response.ok) {
             messageDiv.style.color = 'green';
-            setTimeout(() => window.location.href = 'http://localhost:8081/login.html', 1000);
+            setTimeout(() => window.location.href = 'http://localhost:8090/login.html', 1000);
         } else {
             messageDiv.style.color = 'red';
         }
@@ -55,7 +55,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
     }
 });
 
-// Add real-time password match validation
+// Real-time password match validation
 document.getElementById('confirmPassword').addEventListener('input', () => {
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;

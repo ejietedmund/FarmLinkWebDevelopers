@@ -13,11 +13,19 @@ public class LivestockService {
     @Autowired
     private LivestockRepository livestockRepository;
 
-    public Livestock saveLivestock(Livestock livestock) {
-        return livestockRepository.save(livestock);
+    public void saveLivestock(Livestock livestock) {
+        livestockRepository.save(livestock);
     }
 
     public List<Livestock> getAllLivestock() {
         return livestockRepository.findAll();
+    }
+
+    public List<Livestock> searchLivestock(String query) {
+        return livestockRepository.findByNameOrTypeContaining(query);
+    }
+
+    public List<Livestock> getLivestockByType(String type) {
+        return livestockRepository.findByTypeContaining(type);
     }
 }

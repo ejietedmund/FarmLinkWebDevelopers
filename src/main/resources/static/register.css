@@ -20,7 +20,7 @@
   background: 
     linear-gradient(rgba(0, 0, 0, 0.4), 
     rgba(0, 0, 0, 0.4)),
-    url('http://localhost:8081/api/images/bgimage.jpeg') no-repeat center center fixed;
+    url('http://localhost:8090/api/images/bgimage.jpeg') no-repeat center center fixed;
   background-size: cover;
   position: relative;
 }
@@ -71,7 +71,7 @@
   min-height: 100vh;
   background: 
     linear-gradient(rgba(0, 0, 0, 0.4),
-    url('http://localhost:8081/api/images/bgimage.jpeg') no-repeat center center/cover),
+    url('http://localhost:8090/api/images/bgimage.jpeg') no-repeat center center/cover),
   /* rest of your styles */
 }
 

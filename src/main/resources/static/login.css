@@ -16,7 +16,7 @@
   background: 
     linear-gradient(rgba(0, 0, 0, 0.4), 
     rgba(0, 0, 0, 0.4)),
-    url('<img src="http://localhost:8081/api/images/bgimage.jpeg" alt="Background">') no-repeat center center fixed;
+    url('<img src="http://localhost:8090/api/images/bgimage.jpeg" alt="Background">') no-repeat center center fixed;
   background-size: cover;
   display: flex;
   align-items: center;

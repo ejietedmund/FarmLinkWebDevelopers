@@ -5,7 +5,10 @@ import com.example.farmlink.model.Livestock;
 import com.example.farmlink.service.ImageService;
 import com.example.farmlink.service.LivestockService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,13 +21,14 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/livestock")
+@CrossOrigin(origins = "http://localhost:8090")
 public class LivestockController {
 
     @Autowired
     private LivestockService livestockService;
 
     @Autowired
-    private ImageService imageService; // Add ImageService
+    private ImageService imageService;
 
     private static final String UPLOAD_DIR = "/var/www/images/";
 
@@ -98,9 +102,42 @@ public class LivestockController {
         List<Livestock> livestockList = livestockService.getAllLivestock();
         return ResponseEntity.ok(livestockList);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Livestock>> searchLivestock(@RequestParam String query) {
+        if (query == null || query.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body(null);
+        }
+        List<Livestock> livestockList = livestockService.searchLivestock(query);
+        return ResponseEntity.ok(livestockList);
+    }
+
+    @GetMapping("/type")
+    public ResponseEntity<List<Livestock>> getLivestockByType(@RequestParam String type) {
+        if (type == null || type.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body(null);
+        }
+        List<Livestock> livestockList = livestockService.getLivestockByType(type);
+        return ResponseEntity.ok(livestockList);
+    }
+
+    @GetMapping("/images/{name}")
+    public ResponseEntity<Resource> getImage(@PathVariable String name) {
+        try {
+            File file = new File(UPLOAD_DIR + name);
+            if (!file.exists()) {
+                return ResponseEntity.notFound().build();
+            }
+            Resource resource = new FileSystemResource(file);
+            return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_JPEG)
+                    .body(resource);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
 
-// DTO to match the JSON structure sent from sell.html
 class LivestockRequest {
     private String type;
     private String name;
@@ -110,7 +147,6 @@ class LivestockRequest {
     private String contact;
     private String description;
 
-    // Getters and Setters
     public String getType() {
         return type;
     }

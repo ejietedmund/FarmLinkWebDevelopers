@@ -4,35 +4,19 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "livestock")
 public class Livestock {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "type")
     private String type;
-
-    @Column(name = "name")
     private String name;
-
-    @Column(name = "image_path")
-    private String imagePath; // Path to the image file (e.g., /var/www/images/livestock_123.png)
-
-    @Column(name = "location")
+    private String imagePath;
     private String location;
-
-    @Column(name = "price")
     private Double price;
-
-    @Column(name = "contact")
     private String contact;
-
-    @Column(name = "description")
     private String description;
-
-    @Column(name = "created_at")
     private Timestamp createdAt;
 
     // Getters and Setters

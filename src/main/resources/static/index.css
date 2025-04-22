@@ -330,6 +330,11 @@ body {
     color: #666;
 }
 
+.category-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
 /* Featured Section */
 .featured {
     text-align: center;
@@ -338,17 +343,18 @@ body {
 }
 
 .featured h2 {
-    margin-bottom: 1. flyer875rem; /* 30px */
+    margin-bottom: 1.875rem; /* 30px */
 }
 
-.livestock-container {
+.featured .livestock-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(18.75rem, 1fr)); /* 300px */
     gap: 1.5625rem; /* 25px */
     justify-content: center;
-    align-items: center;
     max-width: 75rem; /* 1200px */
     margin: 0 auto;
+    /* Removed align-items: center */
+    min-height: 200px; /* Ensure the container has space */
 }
 
 .livestock-card {
@@ -359,6 +365,7 @@ body {
     text-align: center;
     transition: var(--transition);
     cursor: pointer;
+    min-height: 300px; /* Ensure the card has space */
 }
 
 .livestock-card:hover {
@@ -392,6 +399,167 @@ body {
 .livestock-card .contact {
     font-size: 0.9em;
     color: var(--text-color);
+}
+
+.livestock-card .description {
+    font-size: 0.85em;
+    color: #666;
+    margin: 5px 0;
+    line-height: 1.4;
+}
+/* Livestock Details Section (Buyer's Page) */
+.livestock-details {
+    padding: 6rem 1.25rem 3.75rem; /* 96px 20px 60px to account for fixed navbar */
+    max-width: 75rem; /* 1200px */
+    margin: 0 auto;
+}
+
+.livestock-details h2 {
+    text-align: center;
+    margin-bottom: 1.875rem; /* 30px */
+    color: var(--primary);
+}
+
+.details-container {
+    display: flex;
+    gap: 1.875rem; /* 30px */
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.image-gallery {
+    flex: 1;
+    min-width: 18.75rem; /* 300px */
+}
+
+.image-gallery #mainImage {
+    width: 100%;
+    height: 25rem; /* 400px */
+    object-fit: cover;
+    border-radius: 0.625rem; /* 10px */
+    box-shadow: 0 0.25rem 0.625rem rgba(0, 0, 0, 0.1);
+}
+
+.thumbnails {
+    display: flex;
+    gap: 0.625rem; /* 10px */
+    margin-top: 0.625rem; /* 10px */
+    overflow-x: auto;
+}
+
+.thumbnails img {
+    width: 6.25rem; /* 100px */
+    height: 6.25rem; /* 100px */
+    object-fit: cover;
+    border-radius: 0.3125rem; /* 5px */
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.thumbnails img:hover {
+    transform: scale(1.05);
+    opacity: 0.8;
+}
+
+.details-info {
+    flex: 1;
+    min-width: 18.75rem; /* 300px */
+    background: white;
+    padding: 1.25rem; /* 20px */
+    border-radius: 0.625rem; /* 10px */
+    box-shadow: 0 0.25rem 0.625rem rgba(0, 0, 0, 0.1);
+}
+
+.details-info p {
+    margin: 0.625rem 0; /* 10px */
+    font-size: 1rem; /* 16px */
+}
+
+.details-info .type {
+    color: #2d6a4f;
+    font-weight: bold;
+}
+
+.details-info .location {
+    color: #555;
+}
+
+.details-info .location i {
+    color: var(--primary);
+    margin-right: 0.3125rem; /* 5px */
+}
+
+.details-info .price {
+    color: #d62828;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.details-info .contact {
+    color: var(--text-color);
+}
+
+.details-info .description {
+    color: #666;
+    line-height: 1.5;
+}
+
+.metadata {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9375rem; /* 15px */
+    margin: 1.25rem 0; /* 20px */
+    color: #555;
+    font-size: 0.875rem; /* 14px */
+}
+
+.metadata span {
+    display: flex;
+    align-items: center;
+    gap: 0.3125rem; /* 5px */
+}
+
+.metadata i {
+    color: var(--primary);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.9375rem; /* 15px */
+    margin-top: 1.25rem; /* 20px */
+}
+
+.contact-button,
+.buy-button {
+    padding: 0.75rem 1.25rem; /* 12px 20px */
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1rem; /* 16px */
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.3125rem; /* 5px */
+}
+
+.contact-button {
+    background-color: var(--primary);
+    color: white;
+}
+
+.contact-button:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.buy-button {
+    background-color: #ff9900;
+    color: white;
+}
+
+.buy-button:hover {
+    background-color: #cc7700;
+    transform: translateY(-2px);
 }
 
 /* Why Sell Section */
@@ -623,4 +791,113 @@ footer {
         text-align: center;
         gap: 0.625rem; /* 10px */
     }
+
+    .details-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .image-gallery #mainImage {
+        height: 18.75rem; /* 300px */
+    }
+}
+
+/* Search container */
+.search-container {
+    display: flex;
+    align-items: center;
+}
+
+.search-bar {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+    width: 200px;
+}
+
+.search-button {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-left: none;
+    border-radius: 0 4px 4px 0;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-button:hover {
+    background-color: #45a049;
+}
+
+/* Search results section */
+.search-results {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.search-results h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.search-results .search-summary {
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+    margin: 10px 0 20px;
+}
+
+.search-results p {
+    text-align: center;
+    font-size: 1.2em;
+    color: #555;
+    margin: 20px 0;
+}
+
+.search-results .livestock-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    justify-content: center; /* Added for consistency */
+    max-width: 75rem; /* Match the featured section */
+    margin: 0 auto;
+    min-height: 200px; /* Ensure the container has space */
+}
+
+/* Ensure .livestock-card styles are consistent */
+.livestock-card:hover {
+    transform: translateY(-5px);
+}
+
+.livestock-card img {
+    width: 100%; /* Override max-width for consistency */
+    height: 12.5rem; /* Match the featured section */
+    object-fit: cover;
+    border-radius: 0.625rem; /* Match the featured section */
+}
+
+.livestock-card h3 {
+    margin: 10px 0;
+    font-size: 1.2em;
+}
+
+.livestock-card .price {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.livestock-card .location,
+.livestock-card .contact,
+.livestock-card .description {
+    margin: 5px 0;
+    color: #555;
+}
+
+.livestock-card .description {
+    font-size: 0.9em;
+    line-height: 1.4;
 }
