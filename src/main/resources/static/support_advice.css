@@ -7,41 +7,42 @@
 }
 
 body {
-  background-color: #f5f5f5;
-  color: #333;
+  background-color: #f5f5f5; /* Matches --background-color from index.css */
+  color: var(--text-color, #333);
 }
 
 /* Page Container */
 .page-container {
   width: 90%;
-  max-width: 1200px;
-  margin: 30px auto;
-  padding-bottom: 50px; /* Extra space at bottom */
+  max-width: 75rem; /* 1200px, matches index.css */
+  margin: 1.875rem auto; /* 30px */
+  padding-bottom: 3.125rem; /* 50px */
+  padding-top: 3.75rem; /* 60px to account for fixed navbar height */
 }
 
 /* Title */
 .page-container h1 {
-  margin-bottom: 20px;
-  font-size: 28px;
-  color: #2e663f;
+  margin-bottom: 1.25rem; /* 20px */
+  font-size: 1.75rem; /* 28px */
+  color: #2e663f; /* Matches --primary or similar color from index.css */
 }
 
 /* Tabs */
 .tabs {
   display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 0.625rem; /* 10px */
+  margin-bottom: 1.25rem; /* 20px */
 }
 
 .tab-button {
-  padding: 10px 20px;
+  padding: 0.625rem 1.25rem; /* 10px 20px */
   border: none;
   background-color: #e0e0e0;
-  color: #333;
+  color: var(--text-color, #333);
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 0.25rem; /* 4px */
   font-weight: bold;
-  transition: background-color 0.3s ease;
+  transition: background-color var(--transition, 0.3s ease);
 }
 
 .tab-button:hover {
@@ -49,7 +50,7 @@ body {
 }
 
 .tab-button.active {
-  background-color: #2e663f;
+  background-color: #2e663f; /* Matches --primary or similar color */
   color: white;
 }
 
@@ -57,10 +58,10 @@ body {
 .tab-content {
   display: none;
   background-color: #fff;
-  border-radius: 5px;
-  padding: 20px;
-  margin-bottom: 30px;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius, 5px);
+  padding: 1.25rem; /* 20px */
+  margin-bottom: 1.875rem; /* 30px */
+  box-shadow: 0 0.125rem 0.375rem rgba(0, 0, 0, 0.1); /* 2px 6px */
 }
 
 .tab-content.active {
@@ -71,52 +72,52 @@ body {
 .tips-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 1.25rem; /* 20px */
 }
 
 .tip-card {
   background-color: #fff;
   border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 15px;
-  width: 300px;
+  border-radius: 0.375rem; /* 6px */
+  padding: 0.9375rem; /* 15px */
+  width: 18.75rem; /* 300px */
   flex: 0 0 auto;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0.125rem 0.375rem rgba(0, 0, 0, 0.05); /* 2px 6px */
 }
 
 .tip-card h3 {
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem; /* 8px */
   color: #2e663f;
-  font-size: 18px;
+  font-size: 1.125rem; /* 18px */
 }
 
 .tip-card p {
-  font-size: 14px;
+  font-size: 0.875rem; /* 14px */
   line-height: 1.5;
   color: #555;
 }
 
 .tip-card.highlight {
-  border-left: 5px solid #2e663f;
+  border-left: 0.3125rem solid #2e663f; /* 5px */
 }
 
 /* Common Diseases Section */
 #diseases ul {
   list-style: disc inside;
-  margin-top: 15px;
+  margin-top: 0.9375rem; /* 15px */
   color: #555;
 }
 
 #diseases ul li {
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem; /* 8px */
 }
 
 /* Contact Support Form */
 .contact-form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 15px;
+  gap: 0.625rem; /* 10px */
+  margin-top: 0.9375rem; /* 15px */
 }
 
 .contact-form label {
@@ -125,8 +126,8 @@ body {
 
 .contact-form input,
 .contact-form textarea {
-  padding: 8px;
-  border-radius: 4px;
+  padding: 0.5rem; /* 8px */
+  border-radius: 0.25rem; /* 4px */
   border: 1px solid #ccc;
 }
 
@@ -135,27 +136,32 @@ body {
   background-color: #2e663f;
   color: white;
   border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
+  padding: 0.5rem 1rem; /* 8px 16px */
+  border-radius: 0.25rem; /* 4px */
   cursor: pointer;
+  transition: background-color var(--transition, 0.3s ease);
+}
+
+.contact-form button:hover {
+  background-color: var(--primary-dark, #1e3d1d);
 }
 
 /* About FarmLink Section */
 .about-farmlink {
   background-color: #fff;
-  border-radius: 5px;
-  padding: 20px;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius, 5px);
+  padding: 1.25rem; /* 20px */
+  box-shadow: 0 0.125rem 0.375rem rgba(0, 0, 0, 0.1); /* 2px 6px */
 }
 
 .about-farmlink h2 {
   color: #2e663f;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem; /* 20px */
 }
 
 .about-farmlink h3 {
-  margin-top: 20px;
-  margin-bottom: 10px;
+  margin-top: 1.25rem; /* 20px */
+  margin-bottom: 0.625rem; /* 10px */
   color: #2e663f;
 }
 
@@ -168,20 +174,20 @@ body {
 }
 
 .how-it-works ol {
-  margin-left: 20px;
+  margin-left: 1.25rem; /* 20px */
 }
 
 .success-stories .story {
-  margin-bottom: 15px;
+  margin-bottom: 0.9375rem; /* 15px */
 }
 
 .benefits ul {
   list-style: disc inside;
-  margin-top: 10px;
+  margin-top: 0.625rem; /* 10px */
 }
 
 .benefits ul li {
-  margin-bottom: 6px;
+  margin-bottom: 0.375rem; /* 6px */
 }
 
 /* Responsive */
@@ -193,4 +199,12 @@ body {
   .tip-card {
     width: 100%;
   }
+}
+.tab-content {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.tab-content.active {
+  display: block;
+  opacity: 1;
 }

@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sell Livestock</title>
     <link rel="stylesheet" href="sell.css">
+    <style>
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: none;
+            z-index: 1000;
+        }
+    </style>
 </head>
 <body>
 <div class="sell-container">
@@ -16,24 +29,22 @@
 
             <label for="imageFile">Upload Image:</label>
             <input type="file" id="imageFile" accept="image/*" required>
-            <!--  input type to store the imageUrl          -->
+            <!-- Input to store the imageUrl -->
             <label for="imageUrl">Image Url:</label>
-            <input type="text" id="imageUrl" name = "imageUrl" readonly>
-            <!--     previewing the saved image       -->
-            <img id="previewImage" alt="animal image" style = "display:none; height:150px; width:150px" src="">
+            <input type="text" id="imageUrl" name="imageUrl" readonly>
+            <!-- Preview the uploaded image -->
+            <img id="previewImage" alt="animal image" style="display:none; height:150px; width:150px" src="">
 
             <label for="price">Price (UGX):</label>
             <input type="number" id="price" min="0" required>
 
             <label for="type">Animal Type:</label>
-            <select id="type"  name="Animal type"  required>
-                <option value = "goat">Goat</option>
-                <option value = "cattle">Cattle</option>
-                <option value = "sheep">Sheep</option>
-                <option value = "poultry">Poultry</option>
-                <option value = "others">Others...</option>
-                <option value = "goat">Goat</option>
-                <option value = "goat">Goat</option>
+            <select id="type" name="Animal type" required>
+                <option value="cattle">Cattle</option>
+                <option value="goat">Goat</option>
+                <option value="sheep">Sheep</option>
+                <option value="poultry">Poultry</option>
+                <option value="others">Others...</option>
             </select>
 
             <label for="description">Short Description:</label>
@@ -44,54 +55,68 @@
 
             <label for="contact">Phone Contact:</label>
             <input type="tel" id="contact" placeholder="Enter phone number" required>
-            <button type="button" id= "submit" class="upload-btn" onclick="passDataToSpring()">Upload</button>
+
+            <button type="button" id="submit" class="upload-btn" onclick="passDataToSpring()">Upload</button>
         </form>
     </div>
 </div>
-<script >
-    document.getElementById("imageFile").addEventListener("change",function(event){
+
+<!-- Toast Notification -->
+<div id="toast" class="toast"></div>
+
+<script>
+    // Handle image preview and Base64 conversion
+    document.getElementById("imageFile").addEventListener("change", function(event) {
         const file = event.target.files[0];
-        if (file){
-            // generate a temporary url
+        if (file) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                const base64String = e.target.result; // Get Base64 encoded string
+                const base64String = e.target.result;
 
-                // Assigning the base64 string to the preview image
+                // Show the image preview
                 const preview = document.getElementById("previewImage");
                 preview.src = base64String;
                 preview.style.display = "block";
 
-                // Storing base64 string as the image URL (for backend submission)
+                // Store the Base64 string in the imageUrl input
                 document.getElementById("imageUrl").value = base64String;
             };
             reader.readAsDataURL(file);
-
-        } else{
-            alert("No such file url exists");
-            showToast("No such file!!!");
+        } else {
+            showToast("No file selected!");
         }
     });
-    // function for passing the sell.html data to the springboot database backend.
-    async function passDataToSpring(){
+
+    // Toast notification function
+    function showToast(message) {
+        const toast = document.getElementById("toast");
+        toast.textContent = message;
+        toast.style.display = "block";
+        setTimeout(() => {
+            toast.style.display = "none";
+        }, 3000);
+    }
+
+    // Submit the form data to the backend
+    async function passDataToSpring() {
         const type = document.getElementById("type").value;
         const phone = document.getElementById("contact").value;
         const description = document.getElementById("description").value;
         const price = document.getElementById("price").value;
         const location = document.getElementById("location").value;
         const imageUrl = document.getElementById("imageUrl").value;
-        alert("image Url is:"+imageUrl);
         const name = document.getElementById("name").value;
         const imageFile = document.getElementById("imageFile");
 
-        if(!imageFile.files.length){
-            alert("please upload your image");
+        if (!imageFile.files.length) {
+            showToast("Please upload an image!");
             return;
         }
+
         const requestData = {
             type: type,
             name: name,
-            imageUrl: imageUrl, // Send Base64 string to backend
+            imageUrl: imageUrl,
             location: location,
             price: price,
             contact: phone,
@@ -99,27 +124,47 @@
         };
 
         try {
-            const response = await fetch("http://localhost:8090/livestock/save",{
-                method:"POST",
+            const response = await fetch("http://localhost:8090/livestock/save", {
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(requestData)
             });
-            if(response.ok){
-                alert("passing data to springboot is sucessful");
+
+            if (response.ok) {
+                showToast("Livestock uploaded successfully!");
+                document.getElementById("livestockForm").reset();
+                document.getElementById("previewImage").style.display = "none";
             } else {
                 throw new Error("Failed to save data");
             }
-        } catch (error){
-            console.error("Error",error);
-            alert("Failed to submit the livestock data successfully");
+        } catch (error) {
+            console.error("Error:", error);
+            showToast("Failed to upload livestock data!");
         }
+    }
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+        const navLinks = document.querySelectorAll('.nav-links a, .nav-actions a');
 
-}
-
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPath) {
+                link.classList.add('active');
+                // If the link is inside a dropdown, add active-parent to the dropbtn
+                const dropdown = link.closest('.dropdown');
+                if (dropdown) {
+                    const dropbtn = dropdown.querySelector('.dropbtn');
+                    if (dropbtn) {
+                        dropbtn.classList.add('active-parent');
+                    }
+                }
+            }
+        });
+    });
 </script>
-
 
 </body>
 </html>

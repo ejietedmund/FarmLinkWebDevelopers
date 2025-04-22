@@ -1,29 +1,74 @@
-// Get elements
-const openModalBtn = document.getElementById('openModalBtn');
-const modalOverlay = document.getElementById('modalOverlay');
-const modalContainer = document.getElementById('modalContainer');
-const closeModalBtn = document.getElementById('closeModalBtn');
-const registerForm = document.getElementById('registerForm');
+document.getElementById('registerForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const fullName = document.getElementById('fullName').value;
+    const userName = document.getElementById('userName').value;
+    const emailAddress = document.getElementById('emailAddress').value;
+    const phoneNumber = document.getElementById('phoneNumber').value;
+    const location = document.getElementById('location').value;
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    const termsCheckbox = document.getElementById('termsCheckbox').checked;
 
-// Open Modal
-openModalBtn.addEventListener('click', () => {
-  modalOverlay.style.display = 'block';
-  modalContainer.classList.add('active');
+    // Create a message div dynamically
+    const messageDiv = document.createElement('div');
+    messageDiv.id = 'message';
+    document.querySelector('.register-form').appendChild(messageDiv);
+
+    // Validate password confirmation
+    if (password !== confirmPassword) {
+        messageDiv.textContent = 'Passwords do not match';
+        messageDiv.style.color = 'red';
+        return;
+    }
+
+    // Validate terms checkbox
+    if (!termsCheckbox) {
+        messageDiv.textContent = 'You must agree to the Terms of Service and Privacy Policy';
+        messageDiv.style.color = 'red';
+        return;
+    }
+
+    try {
+        const response = await fetch('http://localhost:8081/api/auth/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                fullName, 
+                username: userName, 
+                email: emailAddress, 
+                phoneNumber, 
+                location, 
+                password 
+            })
+        });
+        const result = await response.text(); // Use text() since the response is plain text
+        messageDiv.textContent = result;
+        if (response.ok) {
+            messageDiv.style.color = 'green';
+            setTimeout(() => window.location.href = 'http://localhost:8081/login.html', 1000);
+        } else {
+            messageDiv.style.color = 'red';
+        }
+    } catch (error) {
+        messageDiv.textContent = 'Error: Could not connect to server';
+        messageDiv.style.color = 'red';
+    }
 });
 
-// Close Modal
-closeModalBtn.addEventListener('click', closeModal);
-modalOverlay.addEventListener('click', closeModal);
+// Add real-time password match validation
+document.getElementById('confirmPassword').addEventListener('input', () => {
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    const messageDiv = document.getElementById('message') || document.createElement('div');
+    if (!messageDiv.id) {
+        messageDiv.id = 'message';
+        document.querySelector('.register-form').appendChild(messageDiv);
+    }
 
-function closeModal() {
-  modalOverlay.style.display = 'none';
-  modalContainer.classList.remove('active');
-}
-
-// Form Submission (example)
-registerForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  // Validate form, send data to server, etc.
-  alert('Account created successfully!');
-  closeModal();
+    if (password !== confirmPassword) {
+        messageDiv.textContent = 'Passwords do not match';
+        messageDiv.style.color = 'red';
+    } else {
+        messageDiv.textContent = '';
+    }
 });
