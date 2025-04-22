@@ -92,47 +92,6 @@
     </div>
 </footer>
 
-<script>
-    // Fetch livestock listings from the backend
-    async function fetchLivestockListings() {
-        try {
-            const response = await fetch("http://localhost:8090/livestock/all");
-            if (!response.ok) {
-                throw new Error("Failed to fetch listings");
-            }
-            const livestockList = await response.json();
-            displayLivestockListings(livestockList);
-        } catch (error) {
-            console.error("Error fetching listings:", error);
-            const container = document.getElementById("livestockContainer");
-            container.innerHTML = "<p>Failed to load listings. Please try again later.</p>";
-        }
-    }
-
-    // Display the listings on the page
-    function displayLivestockListings(livestockList) {
-        const container = document.getElementById("livestockContainer");
-        container.innerHTML = ""; // Clear existing content
-
-        livestockList.forEach(item => {
-            const card = document.createElement("div");
-            card.className = "livestock-card";
-            const imageName = item.imagePath.split("/").pop();
-            console.log("Image URL:", `http://localhost:8090/api/images/${imageName}`); // Debug log
-            card.innerHTML = `
-                <img src="http://localhost:8090/api/images/${imageName}" alt="${item.type}"
-                     onerror="this.onerror=null; this.src='https://via.placeholder.com/150?text=Image+Not+Found'; console.log('Image failed to load: ${imageName}')">
-                <h3>${item.description}</h3>
-                <p class="price">UGX ${item.price.toLocaleString()}</p>
-                <p class="location">${item.location}</p>
-                <p class="contact">📞 ${item.contact}</p>
-            `;
-            container.appendChild(card);
-        });
-    }
-
-    // Fetch listings when the page loads
-    window.onload = fetchLivestockListings;
-</script>
+<script src="browse_livestock.js"></script>
 </body>
 </html>

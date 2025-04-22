@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="description" content="FarmLink - View livestock details for buying in Uganda.">
+    <meta name="keywords" content="FarmLink, livestock, Uganda, buy, cattle, goats, sheep, pigs, poultry">
+    <meta name="author" content="FarmLink Team">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmLink - Livestock Details</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        .livestock-details {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            margin: 20px 0;
+            padding: 20px;
+        }
+        .image-gallery img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+        .details-info {
+            flex: 1;
+        }
+        .details-info p {
+            margin: 10px 0;
+        }
+        .metadata {
+            margin: 10px 0;
+            color: #666;
+        }
+        .metadata span {
+            margin-right: 15px;
+        }
+        .action-buttons {
+            margin-top: 15px;
+        }
+        .action-buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .contact-button {
+            background-color: #28a745;
+        }
+        .contact-button:hover {
+            background-color: #218838;
+        }
+        .buy-button {
+            background-color: #fd7e14;
+        }
+        .buy-button:hover {
+            background-color: #e06c00;
+        }
+        .contact-form-container {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .contact-form-container.active {
+            display: block;
+        }
+        .contact-form textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .contact-form button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .contact-form button:hover {
+            background-color: #218838;
+        }
+        .whatsapp-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #25D366;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .whatsapp-link:hover {
+            background-color: #20b358;
+        }
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .back-button:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">FarmLink</a>
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="browse_livestock.html" class="dropbtn active-parent">Browse Livestock <span class="arrow">▼</span></a>
+                    <ul class="dropdown-content">
+                        <li><a href="cattle.html">Cattle</a></li>
+                        <li><a href="goats.html">Goats</a></li>
+                        <li><a href="sheep.html">Sheep</a></li>
+                        <li><a href="pigs.html">Pigs</a></li>
+                        <li><a href="poultry.html">Poultry</a></li>
+                    </ul>
+                </li>
+                <li><a href="sell.html" class="sell-nav-button">Sell Livestock</a></li>
+                <li><a href="partners.html">Partners</a></li>
+                <li><a href="support_device.html">Support & Advice</a></li>
+            </ul>
+            <div class="nav-actions" id="navActions">
+                <div class="search-container">
+                    <input type="text" class="search-bar" placeholder="Search for livestock (e.g. calves, pigs)" id="searchInput">
+                    <button class="search-button" id="searchButton"><i class="fas fa-search"></i></button>
+                </div>
+                <a href="about.html" class="nav-button">About Us</a>
+                <a href="login.html" class="nav-button">Login</a>
+                <a href="register.html" class="nav-button">Register</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<section class="livestock-details" id="livestockDetails">
+    <div class="image-gallery">
+        <img id="mainImage" src="" alt="Livestock Image" onerror="this.src='https://via.placeholder.com/400?text=No+Image'">
+    </div>
+    <div class="details-info">
+        <p class="type"><strong>Type:</strong> <span id="livestockType"></span></p>
+        <p class="location"><i class="fas fa-map-marker-alt"></i> <span id="livestockLocation"></span></p>
+        <p class="price"><strong>Price:</strong> UGX <span id="livestockPrice"></span></p>
+        <p class="contact"><strong>Contact:</strong> <span id="livestockContact"></span></p>
+        <p class="description"><strong>Description:</strong> <span id="livestockDescription"></span></p>
+        <div class="metadata">
+            <span><i class="fas fa-calendar-alt"></i> Listed <span id="listedDate"></span></span>
+            <span><i class="fas fa-check-circle"></i> Homebred</span>
+        </div>
+        <div class="action-buttons">
+            <button class="contact-button" id="contactBtn"><i class="fas fa-envelope"></i> Contact Owner</button>
+            <button class="buy-button"><i class="fas fa-shopping-cart"></i> Buying Options</button>
+        </div>
+    </div>
+</section>
+
+<div class="contact-form-container" id="contactForm">
+    <h3>Contact Seller</h3>
+    <form id="emailForm" class="contact-form">
+        <textarea id="message" placeholder="Enter your message..." required></textarea>
+        <button type="submit">Send Email</button>
+    </form>
+    <a id="whatsappLink" href="#" target="_blank" class="whatsapp-link"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+</div>
+
+<a href="browse_livestock.html" class="back-button">Back to Listings</a>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-column">
+            <h3>FarmLink</h3>
+            <p>Connecting Ugandan farmers directly with buyers to create a more efficient livestock marketplace.</p>
+        </div>
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="browse_livestock.html">Browse Listings</a></li>
+                <li><a href="partners.html">Partner Farms</a></li>
+                <li><a href="#">Terms & Conditions</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Support & Advice</h3>
+            <ul>
+                <li><a href="#">Livestock Diseases</a></li>
+                <li><a href="#">Breeding Tips</a></li>
+                <li><a href="#">Feeding Guidelines</a></li>
+                <li><a href="#">Market Prices</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Contact Support</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Subscribe</h3>
+            <p>Get the latest livestock listings and farming advice delivered to your inbox.</p>
+            <form class="subscribe-form">
+                <input type="email" placeholder="Your email..." required>
+                <button type="submit">Join</button>
+            </form>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© FarmLink 2025. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#">Terms</a>
+            <a href="#">Privacy</a>
+            <a href="#">Cookies</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', async function() {
+        // Update nav actions based on login status
+        const navActions = document.getElementById('navActions');
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user && user.loggedIn) {
+            const logoutButton = document.createElement('a');
+            logoutButton.href = '#';
+            logoutButton.className = 'nav-button';
+            logoutButton.textContent = 'Logout';
+            logoutButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('user');
+                localStorage.removeItem('rememberedUsername');
+                window.location.href = 'index.html';
+            });
+            navActions.appendChild(logoutButton);
+        } else {
+            const loginButton = document.createElement('a');
+            loginButton.href = 'login.html';
+            loginButton.className = 'nav-button';
+            loginButton.textContent = 'Login';
+            navActions.appendChild(loginButton);
+
+            const registerButton = document.createElement('a');
+            registerButton.href = 'register.html';
+            registerButton.className = 'nav-button';
+            registerButton.textContent = 'Register';
+            navActions.appendChild(registerButton);
+        }
+
+        // Get livestock ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const livestockId = urlParams.get('id');
+
+        if (!livestockId) {
+            document.getElementById('livestockDetails').innerHTML = '<p>No listing ID provided.</p>';
+            return;
+        }
+
+        // Fetch livestock details with timeout
+        let item;
+        try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 5000); // 5-second timeout
+
+            const response = await fetch(`http://localhost:8090/livestock/${livestockId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                signal: controller.signal
+            });
+
+            clearTimeout(timeoutId);
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            item = await response.json();
+            console.log('Fetched livestock data:', item);
+        } catch (error) {
+            console.error('Error fetching details:', error.message);
+            document.getElementById('livestockDetails').innerHTML = `<p>Failed to load details: ${error.message}. Please try again later.</p>`;
+            return;
+        }
+
+        // Fetch seller email
+        let sellerEmail = '';
+        try {
+            const sellerResponse = await fetch(`http://localhost:8090/api/users/${item.sellerId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (sellerResponse.ok) {
+                const seller = await sellerResponse.json();
+                sellerEmail = seller.email;
+                console.log('Fetched seller email:', sellerEmail);
+            } else {
+                throw new Error(`HTTP error! Status: ${sellerResponse.status}`);
+            }
+        } catch (error) {
+            console.error('Error fetching seller email:', error.message);
+            sellerEmail = ''; // Fallback
+        }
+
+        // Display livestock details
+        try {
+            document.getElementById('livestockType').textContent = item.type || 'N/A';
+            document.getElementById('livestockLocation').textContent = item.location || 'Unknown';
+            document.getElementById('livestockPrice').textContent = item.price ? item.price.toLocaleString() : 'N/A';
+            document.getElementById('livestockContact').textContent = item.contact || 'N/A';
+            document.getElementById('livestockDescription').textContent = item.description || 'No description available';
+            document.getElementById('listedDate').textContent = 'a day ago';
+
+            const imageName = item.imagePath ? item.imagePath.split('/').pop() : 'placeholder.jpg';
+            document.getElementById('mainImage').src = `http://localhost:8090/api/images/${imageName}`;
+        } catch (error) {
+            console.error('Error rendering details:', error.message);
+            document.getElementById('livestockDetails').innerHTML = '<p>Error rendering details. Please try again later.</p>';
+            return;
+        }
+
+        // Set up WhatsApp link
+        const contact = item.contact ? item.contact.replace(/\D/g, '') : ''; // Remove non-digits
+        const whatsappLink = document.getElementById('whatsappLink');
+        if (contact) {
+            const countryCode = contact.startsWith('0') ? '256' + contact.substring(1) : contact;
+            whatsappLink.href = `https://wa.me/${countryCode}?text=Hello, I'm interested in your ${item.type} listing on FarmLink.`;
+        } else {
+            whatsappLink.style.display = 'none';
+        }
+
+        // Handle Contact Owner button
+        const contactBtn = document.getElementById('contactBtn');
+        const contactForm = document.getElementById('contactForm');
+        contactBtn.addEventListener('click', () => {
+            contactForm.classList.toggle('active');
+        });
+
+        // Handle email form submission
+        const emailForm = document.getElementById('emailForm');
+        emailForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const message = document.getElementById('message').value;
+            if (sellerEmail) {
+                try {
+                    const response = await fetch('http://localhost:8090/api/send-email', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            to: sellerEmail,
+                            subject: `Inquiry about ${item.type} Listing on FarmLink`,
+                            body: message
+                        })
+                    });
+                    if (response.ok) {
+                        alert('Email sent successfully!');
+                        contactForm.classList.remove('active');
+                        emailForm.reset();
+                    } else {
+                        alert('Failed to send email. Please try again.');
+                    }
+                } catch (error) {
+                    console.error('Error sending email:', error.message);
+                    alert('Error sending email. Please try again later.');
+                }
+            } else {
+                alert('Seller email not available. Please use WhatsApp to contact the seller.');
+            }
+        });
+    });
+</script>
+</body>
+</html>
