@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Seller - FarmLink</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .contact-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 600px;
+            margin: 80px auto;
+            background: linear-gradient(145deg, #ffffff, #f9f9f9);
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #165016;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background: rgba(22, 80, 22, 0.2);
+            bottom: 0;
+            left: 25%;
+            border-radius: 2px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: #165016;
+            margin: 1.5rem 0 1rem;
+            font-weight: 600;
+        }
+
+        .details-section, .contact-section {
+            margin-bottom: 20px;
+        }
+
+        .details-section p, .contact-section p {
+            font-size: 1rem;
+            color: #333;
+            margin: 8px 0;
+        }
+
+        .contact-section a {
+            color: #165016;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .contact-section a:hover {
+            color: #0f3b0f;
+            text-decoration: underline;
+        }
+
+        .email-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 120px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        textarea:focus {
+            border-color: #165016;
+            box-shadow: 0 0 0 3px rgba(22, 80, 22, 0.1);
+            outline: none;
+        }
+
+        .send-btn, .back-btn {
+            background-color: #165016;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-top: 10px;
+        }
+
+        .send-btn:hover, .back-btn:hover {
+            background-color: #0f3b0f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(15, 59, 15, 0.2);
+        }
+
+        .back-btn {
+            background-color: #666;
+        }
+
+        .back-btn:hover {
+            background-color: #555;
+        }
+
+        .loading {
+            font-size: 1rem;
+            color: #165016;
+            text-align: center;
+            margin: 10px 0;
+            display: none;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: none;
+            z-index: 1000;
+        }
+
+        @media (max-width: 640px) {
+            .contact-container {
+                padding: 20px;
+                margin: 60px 15px;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            h2 {
+                font-size: 1.3rem;
+            }
+
+            .send-btn, .back-btn {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="contact-container">
+    <h1>Contact Seller</h1>
+
+    <!-- Loading State -->
+    <div class="loading" id="loading">Loading...</div>
+
+    <!-- Buyer and Seller Details -->
+    <div class="details-section" id="detailsSection" style="display: none;">
+        <h2>Details</h2>
+        <p><strong>Buyer Name:</strong> <span id="buyerName"></span></p>
+        <p><strong>Buyer Email:</strong> <span id="buyerEmail"></span></p>
+        <p><strong>Seller Contact:</strong> <span id="sellerContact"></span></p>
+        <p><strong>Seller Email:</strong> <span id="sellerEmail"></span></p>
+    </div>
+
+    <!-- Contact Options -->
+    <div class="contact-section" id="contactSection" style="display: none;">
+        <h2>Contact Options</h2>
+        <p><strong>Call Seller:</strong> <a id="phoneLink" href="">Call Now</a></p>
+        <p><strong>Message on WhatsApp:</strong> <a id="whatsappLink" href="" target="_blank">Chat on WhatsApp</a></p>
+    </div>
+
+    <!-- Email Form -->
+    <div class="contact-section" id="emailSection" style="display: none;">
+        <h2>Send an Email</h2>
+        <form id="emailForm" class="email-form">
+            <label for="message">Your Message:</label>
+            <textarea id="message" placeholder="Type your message here..." required></textarea>
+            <button type="button" class="send-btn" onclick="sendEmail()">Send Email</button>
+        </form>
+    </div>
+
+    <!-- Back Button -->
+    <button class="back-btn" onclick="goBack()">Back to Listing</button>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast" class="toast"></div>
+
+<script>
+    const livestockId = new URLSearchParams(window.location.search).get('id');
+    let sellerEmail = '';
+    let sellerContact = '';
+
+    // Show toast notification
+    function showToast(message) {
+        const toast = document.getElementById("toast");
+        toast.textContent = message;
+        toast.style.display = "block";
+        setTimeout(() => {
+            toast.style.display = "none";
+        }, 3000);
+    }
+
+    // Show/hide loading state
+    function setLoading(isLoading) {
+        const loading = document.getElementById("loading");
+        const detailsSection = document.getElementById("detailsSection");
+        const contactSection = document.getElementById("contactSection");
+        const emailSection = document.getElementById("emailSection");
+
+        loading.style.display = isLoading ? "block" : "none";
+        detailsSection.style.display = isLoading ? "none" : "block";
+        contactSection.style.display = isLoading ? "none" : "block";
+        emailSection.style.display = isLoading ? "none" : "block";
+    }
+
+    // Fetch buyer and seller details
+    async function loadDetails() {
+        if (!livestockId) {
+            showToast("Error: No livestock ID provided.");
+            setLoading(false);
+            return;
+        }
+
+        setLoading(true);
+        try {
+            // Fetch buyer details
+            const buyerResponse = await fetch("http://localhost:8090/users/me", {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`
+                }
+            });
+            if (!buyerResponse.ok) {
+                throw new Error(`Failed to fetch buyer details: ${buyerResponse.status}`);
+            }
+            const buyer = await buyerResponse.json();
+            document.getElementById("buyerName").textContent = buyer.username || 'Unknown';
+            document.getElementById("buyerEmail").textContent = buyer.email || 'Unknown';
+
+            // Fetch livestock (seller) details
+            const livestockResponse = await fetch(`http://localhost:8090/livestock/all`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`
+                }
+            });
+            if (!livestockResponse.ok) {
+                throw new Error(`Failed to fetch livestock details: ${livestockResponse.status}`);
+            }
+            const livestockList = await livestockResponse.json();
+            const livestock = livestockList.find(item => item.id == livestockId);
+
+            if (!livestock) {
+                throw new Error("Livestock not found.");
+            }
+
+            sellerEmail = livestock.email || 'unknown@example.com';
+            sellerContact = livestock.contact || 'Not available';
+            document.getElementById("sellerEmail").textContent = sellerEmail;
+            document.getElementById("sellerContact").textContent = sellerContact;
+
+            // Set up contact links
+            const phoneLink = document.getElementById("phoneLink");
+            phoneLink.href = `tel:${sellerContact}`;
+            phoneLink.textContent = sellerContact ? `Call ${sellerContact}` : 'Not available';
+
+            const whatsappLink = document.getElementById("whatsappLink");
+            if (sellerContact) {
+                // Remove non-digits, replace leading 0 with 256 for Uganda country code
+                let formattedContact = sellerContact.replace(/\D/g, '');
+                if (formattedContact.startsWith('0')) {
+                    formattedContact = '256' + formattedContact.substring(1);
+                } else if (!formattedContact.startsWith('+256')) {
+                    formattedContact = '256' + formattedContact;
+                }
+                whatsappLink.href = `https://wa.me/${formattedContact}?text=Hello,%20I'm%20interested%20in%20your%20livestock%20listing%20on%20FarmLink.`;
+            } else {
+                whatsappLink.style.display = "none";
+            }
+        } catch (error) {
+            console.error("Error loading details:", error);
+            showToast("Failed to load details: " + error.message);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    // Send email to the seller
+    async function sendEmail() {
+        const message = document.getElementById("message").value.trim();
+        if (!message) {
+            showToast("Please enter a message.");
+            return;
+        }
+
+        setLoading(true);
+        try {
+            const buyerEmail = document.getElementById("buyerEmail").textContent;
+            const response = await fetch("http://localhost:8090/send-email", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`
+                },
+                body: JSON.stringify({
+                    from: buyerEmail,
+                    to: sellerEmail,
+                    subject: "Inquiry About Your Livestock Listing on FarmLink",
+                    body: message
+                })
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Failed to send email: ${errorText || response.status}`);
+            }
+
+            showToast("Email sent successfully!");
+            document.getElementById("message").value = "";
+        } catch (error) {
+            console.error("Error sending email:", error);
+            showToast("Failed to send email: " + error.message);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    // Go back to the listing page
+    function goBack() {
+        window.location.href = `buyer.html?id=${livestockId}`;
+    }
+
+    // Load details when the page loads
+    document.addEventListener('DOMContentLoaded', loadDetails);
+</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9358e79208dddd25',t:'MTc0NTUzMjM1Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'935ddf1a8fc3bcef',t:'MTc0NTU4NDQzNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9364f5663eadeba6',t:'MTc0NTY1ODc0OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

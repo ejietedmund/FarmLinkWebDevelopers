@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="description" content="FarmLink - Your trusted platform for buying and selling livestock in Uganda.">
+    <meta name="keywords" content="FarmLink, livestock, Uganda, buy, sell, cattle, goats, sheep, pigs, poultry">
+    <meta name="author" content="FarmLink Team">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmLink</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+<header>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">FarmLink</a>
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="browse_livestock.html" class="dropbtn active-parent">Browse Livestock <span class="arrow">▼</span></a>
+                    <ul class="dropdown-content">
+                        <li><a href="cattle.html">Cattle</a></li>
+                        <li><a href="goats.html">Goats</a></li>
+                        <li><a href="sheep.html">Sheep</a></li>
+                        <li><a href="pigs.html">Pigs</a></li>
+                        <li><a href="poultry.html">Poultry</a></li>
+                    </ul>
+                </li>
+                <li><a href="sell.html" class="sell-nav-button">Sell Livestock</a></li>
+                <li><a href="partners.html">Partners</a></li>
+                <li><a href="support_device.html">Support & Advice</a></li>
+            </ul>
+            <div class="nav-actions" id="navActions">
+                <div class="search-container">
+                    <input type="text" class="search-bar" placeholder="Search for livestock (e.g. calves, pigs)" id="searchInput">
+                    <button class="search-button" id="searchButton"><i class="fas fa-search"></i></button>
+                </div>
+                <a href="about.html" class="nav-button">About Us</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<section class="search-results" id="searchResults" style="display: none;">
+    <h2>Search Results</h2>
+    <div class="livestock-container" id="searchResultsContainer"></div>
+</section>
+
+<section class="hero">
+    <h1>Buy and Sell Livestock Easily with FarmLink</h1>
+    <p>Connecting Ugandan farmers directly with buyers for a better marketplace.</p>
+    <div class="hero-buttons">
+        <a href="browse_livestock.html"><button class="browse">Browse Livestock</button></a>
+        <a href="sell.html"><button class="sell">Sell Your Livestock</button></a>
+    </div>
+</section>
+
+<section class="categories">
+    <h2>Browse Livestock Categories</h2>
+    <div class="category-list">
+        <a href="cattle.html" class="category-link">
+            <div class="category">
+                <i class="fa-solid fa-cow"></i>
+                <h3>Cattle</h3>
+                <p>Explore various breeds of cattle suitable for dairy and meat production.</p>
+            </div>
+        </a>
+        <a href="goats.html" class="category-link">
+            <div class="category">
+                <i class="fa-solid fa-horse"></i>
+                <h3>Goats</h3>
+                <p>Discover different goat breeds ideal for milk, meat, and fiber.</p>
+            </div>
+        </a>
+        <a href="sheep.html" class="category-link">
+            <div class="category">
+                <i class="fa-solid fa-paw"></i>
+                <h3>Sheep</h3>
+                <p>Find sheep breeds perfect for wool and meat production.</p>
+            </div>
+        </a>
+        <a href="pigs.html" class="category-link">
+            <div class="category">
+                <i class="fa-solid fa-piggy-bank"></i>
+                <h3>Pigs</h3>
+                <p>Browse pig breeds known for quality pork production.</p>
+            </div>
+        </a>
+        <a href="poultry.html" class="category-link">
+            <div class="category">
+                <i class="fa-solid fa-feather"></i>
+                <h3>Poultry</h3>
+                <p>Check out various poultry breeds for eggs and meat.</p>
+            </div>
+        </a>
+    </div>
+</section>
+
+<section class="featured">
+    <h2>Featured Livestock</h2>
+    <div class="livestock-container">
+        <!-- Livestock cards will be populated dynamically -->
+    </div>
+</section>
+
+<section class="why-sell">
+    <h2>Why Sell Through FarmLink</h2>
+    <div class="features-container">
+        <div class="feature">
+            <i class="fas fa-handshake"></i>
+            <h3>Direct Connection</h3>
+            <p>Connect directly with buyers and sellers without middlemen, maximizing your profits.</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-shield-alt"></i>
+            <h3>Verified Listings</h3>
+            <p>All farmers and livestock are verified to ensure quality and prevent fraud.</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-chart-line"></i>
+            <h3>Market Insights</h3>
+            <p>Access pricing data and market trends to make informed decisions about buying and selling.</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-users"></i>
+            <h3>Community Support</h3>
+            <p>Join a community of Ugandan farmers sharing advice, tips, and best practices.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-column">
+            <h3>FarmLink</h3>
+            <p>
+                Connecting Ugandan farmers directly with buyers to create a more efficient livestock marketplace.
+            </p>
+        </div>
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="browse_livestock.html">Browse Listings</a></li>
+                <li><a href="partners.html">Partner Farms</a></li>
+                <li><a href="#">Terms & Conditions</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Support & Advice</h3>
+            <ul>
+                <li><a href="#">Livestock Diseases</a></li>
+                <li><a href="#">Breeding Tips</a></li>
+                <li><a href="#">Feeding Guidelines</a></li>
+                <li><a href="#">Market Prices</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Contact Support</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Subscribe</h3>
+            <p>Get the latest livestock listings and farming advice delivered to your inbox.</p>
+            <form class="subscribe-form">
+                <input type="email" placeholder="Your email..." required>
+                <button type="submit">Join</button>
+            </form>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© FarmLink 2025. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#">Terms</a>
+            <a href="#">Privacy</a>
+            <a href="#">Cookies</a>
+        </div>
+    </div>
+</footer>
+
+<script src="index.js"></script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93452a8e6fabb0cd',t:'MTc0NTMyNTM4MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9345390e4bcdbade',t:'MTc0NTMyNTk3NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
+</html>
