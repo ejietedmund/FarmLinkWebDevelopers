@@ -32,6 +32,7 @@ public class AuthController {
 
         Map<String, String> response = new HashMap<>();
         response.put("username", user.getUsername());
+        response.put("role", user.getRole()); // Include role in response
         response.put("message", "Login successful");
         return ResponseEntity.ok(response);
     }
@@ -51,8 +52,9 @@ public class AuthController {
         user.setFullName(request.getFullName());
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
-        user.setContact(request.getPhoneNumber()); // Map phoneNumber to contact
+        user.setContact(request.getPhoneNumber());
         user.setLocation(request.getLocation());
+        user.setRole("USER"); // Default role for new users
 
         try {
             userService.saveUser(user, request.getPassword());

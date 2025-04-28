@@ -10,6 +10,15 @@ body {
   background-color: #f5f5f5; /* Matches --background-color from index.css */
   color: var(--text-color, #333);
 }
+a{
+  text-decoration:none;
+  color:#2d572c;
+}
+ a:hover{
+ cursor:pointer;
+
+
+}
 
 /* Page Container */
 .page-container {

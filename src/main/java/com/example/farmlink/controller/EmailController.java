@@ -24,21 +24,33 @@ public class EmailController {
 
             // Set a friendly "From" name and the authenticated SMTP user email
             helper.setFrom("ejiet.edmund@gmail.com", "FarmLink Support");
-            // Set the "Reply-To" address to the buyer's email
+            // Set the "Reply-To" address
             helper.setReplyTo(emailRequest.getFrom());
             helper.setTo(emailRequest.getTo());
             helper.setSubject(emailRequest.getSubject());
 
-            // Create a more detailed email body with a signature
-            String bodyWithBuyerInfo = "Dear Seller,\n\n" +
-                    "You have received a new inquiry about your livestock listing on FarmLink:\n\n" +
-                    "From: " + emailRequest.getFrom() + "\n" +
-                    "Message: " + emailRequest.getBody() + "\n\n" +
-                    "Please reply to the buyer directly using the email above.\n\n" +
-                    "Best regards,\n" +
-                    "The FarmLink Team\n" +
-                    "support@farmlink.com";
-            helper.setText(bodyWithBuyerInfo, true);
+            // Format the email body based on the recipient type
+            String bodyWithSignature;
+            if ("BUYER".equalsIgnoreCase(emailRequest.getRecipientType())) {
+                bodyWithSignature = "Dear Buyer,\n\n" +
+                        "Thank you for your purchase on FarmLink:\n\n" +
+                        "Details: " + emailRequest.getBody() + "\n\n" +
+                        "If you have any questions, please contact the seller directly or reach out to us.\n\n" +
+                        "Best regards,\n" +
+                        "The FarmLink Team\n" +
+                        "ejiet.edmund@gmail.com";
+            } else {
+                // Default to seller (or if recipientType is "SELLER")
+                bodyWithSignature = "Dear Seller,\n\n" +
+                        "You have received a new inquiry about your livestock listing on FarmLink:\n\n" +
+                        "From: " + emailRequest.getFrom() + "\n" +
+                        "Message: " + emailRequest.getBody() + "\n\n" +
+                        "Please reply to the buyer directly using the email above.\n\n" +
+                        "Best regards,\n" +
+                        "The FarmLink Team\n" +
+                        "ejiet.edmund@gmail.com";
+            }
+            helper.setText(bodyWithSignature, true);
 
             mailSender.send(message);
             return ResponseEntity.ok("Email sent successfully");
@@ -47,3 +59,4 @@ public class EmailController {
         }
     }
 }
+

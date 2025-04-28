@@ -29,8 +29,13 @@ public class LivestockService {
     public List<Livestock> searchLivestock(String query) {
         return livestockRepository.findByNameOrTypeContaining(query);
     }
+    public void deleteLivestock(Long id) {
+        livestockRepository.deleteById(id);
+    }
+
 
     public List<Livestock> getLivestockByType(String type) {
         return livestockRepository.findByTypeContaining(type);
     }
+
 }

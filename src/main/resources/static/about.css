@@ -48,7 +48,7 @@ body {
 .about-container {
   max-width: 1200px;
   margin: 30px auto;
-  padding: 80px 20px 20px 20px; /* Increased padding-top to 80px to account for fixed navbar (~60px) + extra spacing */
+  padding: 60px 20px 20px 20px;
 }
 
 /* Page Title */

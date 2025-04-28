@@ -7,59 +7,59 @@
     <link rel="stylesheet" href="login.css">
 </head>
 <body class="login-page">
-    <div class="background-overlay"></div>
-    <div class="login-container">
-        <div class="login-header">
-            <h1>Login to FarmLink</h1>
-            <p class="subtitle">Enter your credentials to access your account</p>
-        </div>
+<div class="background-overlay"></div>
+<div class="login-container">
+    <div class="login-header">
+        <h1>Login to FarmLink</h1>
+        <p class="subtitle">Enter your credentials to access your account</p>
+    </div>
 
-        <!-- Login Form -->
-        <form id="loginForm" class="login-form">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input
+    <!-- Login Form -->
+    <form id="loginForm" class="login-form">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input
                     type="text"
                     id="username"
                     name="username"
                     placeholder="Enter your username"
                     required
-                />
-            </div>
+            />
+        </div>
 
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input
                     type="password"
                     id="password"
                     name="password"
                     placeholder="Enter your password"
                     required
-                />
-                <div class="password-strength">
-                    <div class="strength-meter"></div>
-                </div>
+            />
+            <div class="password-strength">
+                <div class="strength-meter"></div>
             </div>
+        </div>
 
-            <!-- Remember Me & Forgot Password -->
-            <div class="form-actions">
-                <div class="remember-me">
-                    <input type="checkbox" id="rememberMe" name="rememberMe" />
-                    <label for="rememberMe">Remember me</label>
-                </div>
-                <a href="#" class="forgot-password">Forgot password?</a>
+        <!-- Remember Me & Forgot Password -->
+        <div class="form-actions">
+            <div class="remember-me">
+                <input type="checkbox" id="rememberMe" name="rememberMe" />
+                <label for="rememberMe">Remember me</label>
             </div>
+            <a href="#" class="forgot-password">Forgot password?</a>
+        </div>
 
-            <!-- Submit Button -->
-            <button type="submit" class="submit-btn">Login</button>
+        <!-- Submit Button -->
+        <button type="submit" class="submit-btn">Login</button>
 
-            <!-- Register Link -->
-            <div class="login-footer">
-                <p>Don't have an account? <a href="register.html" class="register-link">Register</a></p>
-            </div>
-        </form>
-    </div>
+        <!-- Register Link -->
+        <div class="login-footer">
+            <p>Don't have an account? <a href="register.html" class="register-link">Register</a></p>
+        </div>
+    </form>
+</div>
 
-    <script src="login.js"></script>
-</body>
+<script src="login.js"></script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9367648e7ed8bd21',t:'MTc0NTY4NDI3Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

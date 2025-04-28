@@ -11,12 +11,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String username; // Changed from name to username to match the table
+    private String username;
     private String fullName;
     private String email;
     private String contact;
     private String location;
     private String password;
+    private String role; // New field for user role (e.g., "ADMIN", "USER")
 
     public User() {}
 
@@ -26,6 +27,7 @@ public class User {
         this.email = email;
         this.contact = contact;
         this.password = password;
+        this.role = "USER"; // Default role
     }
 
     // Getters and setters
@@ -85,5 +87,11 @@ public class User {
         return location;
     }
 
+    public String getRole() {
+        return role;
+    }
 
+    public void setRole(String role) {
+        this.role = role;
+    }
 }

@@ -14,4 +14,5 @@ public interface LivestockRepository extends JpaRepository<Livestock, Long> {
 
     @Query("SELECT l FROM Livestock l WHERE LOWER(l.type) LIKE LOWER(CONCAT('%', :type, '%'))")
     List<Livestock> findByTypeContaining(String type);
+    List<Livestock> findByType(String type);
 }

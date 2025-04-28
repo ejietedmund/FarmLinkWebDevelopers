@@ -1,20 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="description" content="FarmLink - View livestock details for buying in Uganda.">
-    <meta name="keywords" content="FarmLink, livestock, Uganda, buy, cattle, goats, sheep, pigs, poultry">
+    <meta name="description" content="FarmLink - Your trusted platform for buying and selling livestock in Uganda.">
+    <meta name="keywords" content="FarmLink, livestock, Uganda, buy, sell, cattle, goats, sheep, pigs, poultry">
     <meta name="author" content="FarmLink Team">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FarmLink - Livestock Details</title>
+    <title>FarmLink</title>
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="icon" type="image/png" href="http://localhost:8090/api/images/logo.png" sizes="64x64">
+    <style>
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: none;
+            z-index: 1000;
+        }
+
+        /* Login Modal Styles */
+        .login-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .login-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .login-close:hover {
+            color: #333;
+        }
+
+        .login-container {
+            text-align: center;
+        }
+
+        .login-container h2 {
+            margin-bottom: 15px;
+            color: #2d572c;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .login-button {
+            background-color: #2d572c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-button:hover {
+            background-color: #1e3d1d;
+        }
+
+        .error-message {
+            color: #d62828;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
 </head>
 <body>
 <header>
     <nav class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="logo">FarmLink</a>
+            <a href="index.html" class="logo">
+                <img src="http://localhost:8090/api/images/logo.png" alt="FarmLink Logo" class="logo-image">
+            </a>
             <ul class="nav-links">
                 <li class="dropdown">
                     <a href="browse_livestock.html" class="dropbtn active-parent">Browse Livestock <span class="arrow">▼</span></a>
@@ -28,7 +122,7 @@
                 </li>
                 <li><a href="sell.html" class="sell-nav-button">Sell Livestock</a></li>
                 <li><a href="partners.html">Partners</a></li>
-                <li><a href="support_device.html">Support & Advice</a></li>
+                <li><a href="support_advice.html">Support & Advice</a></li>
             </ul>
             <div class="nav-actions" id="navActions">
                 <div class="search-container">
@@ -56,18 +150,36 @@
             <p class="description"><strong>Description:</strong> <span id="livestockDescription"></span></p>
             <div class="metadata">
                 <span><i class="fas fa-calendar-alt"></i> Listed <span id="listedDate"></span></span>
-                <span><i class="fas fa-check-circle"></i> Homebred</span>
             </div>
             <div class="action-buttons">
                 <button class="contact-button" onclick="window.location.href='contact_seller.html?id=' + new URLSearchParams(window.location.search).get('id')"><i class="fas fa-envelope"></i> Contact Owner</button>
-                <button class="buy-button"><i class="fas fa-shopping-cart"></i> Buying Options</button>
+                <button class="buy-button" id="buyButton"><i class="fas fa-shopping-cart"></i> Buying Options</button>
             </div>
         </div>
     </div>
 </section>
 
+<!-- Login Modal -->
+<div id="loginModal" class="login-modal">
+    <div class="login-modal-content">
+        <span class="login-close" id="loginClose">×</span>
+        <div class="login-container">
+            <h2>Login Required</h2>
+            <input type="text" id="usernameInput" placeholder="Username" required>
+            <input type="password" id="passwordInput" placeholder="Password" required>
+            <button class="login-button" id="loginSubmit">Login</button>
+            <p class="error-message" id="loginError">Invalid username or password.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast" class="toast"></div>
+
 <script src="index.js"></script>
 <script>
+    let livestockData = null; // Store livestock details globally
+
     document.addEventListener('DOMContentLoaded', function() {
         const navActions = document.getElementById('navActions');
         const user = JSON.parse(localStorage.getItem('user'));
@@ -111,9 +223,42 @@
             return;
         }
 
+        // Function to calculate time difference
+        function getTimeAgo(createdAt) {
+            const createdDate = new Date(createdAt);
+            const now = new Date();
+            const diffMs = now - createdDate; // Difference in milliseconds
+
+            const diffSeconds = Math.floor(diffMs / 1000);
+            const diffMinutes = Math.floor(diffSeconds / 60);
+            const diffHours = Math.floor(diffMinutes / 60);
+            const diffDays = Math.floor(diffHours / 24);
+
+            if (diffDays > 0) {
+                return `${diffDays} day${diffDays === 1 ? '' : 's'} ago`;
+            } else if (diffHours > 0) {
+                return `${diffHours} hour${diffHours === 1 ? '' : 's'} ago`;
+            } else if (diffMinutes > 0) {
+                return `${diffMinutes} minute${diffMinutes === 1 ? '' : 's'} ago`;
+            } else {
+                return `${diffSeconds} second${diffSeconds === 1 ? '' : 's'} ago`;
+            }
+        }
+
+        // Show toast notification
+        function showToast(message) {
+            const toast = document.getElementById("toast");
+            toast.textContent = message;
+            toast.style.display = "block";
+            setTimeout(() => {
+                toast.style.display = "none";
+            }, 3000);
+        }
+
+        // Fetch livestock details
         async function fetchLivestockDetails() {
             try {
-                const response = await fetch(`http://localhost:8090/livestock/all`, {
+                const response = await fetch(`http://localhost:8090/livestock/${livestockId}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -124,25 +269,26 @@
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
 
-                const livestockList = await response.json();
-                const livestock = livestockList.find(item => item.id == livestockId);
+                livestockData = await response.json();
 
-                if (!livestock) {
+                if (!livestockData) {
                     document.getElementById('livestockDetails').innerHTML = '<p>Livestock not found.</p>';
                     return;
                 }
 
-                document.getElementById('livestockTitle').textContent = `For Sale: ${livestock.name}`;
-                document.getElementById('livestockType').textContent = livestock.type || 'N/A';
-                document.getElementById('livestockQuantity').textContent = livestock.quantity || 'NULL';
-                document.getElementById('livestockLocation').textContent = livestock.location || 'Unknown';
-                document.getElementById('livestockPrice').textContent = livestock.price.toLocaleString();
-                document.getElementById('livestockContact').textContent = livestock.contact || 'N/A';
-                document.getElementById('livestockDescription').textContent = livestock.description || 'No description available';
+                document.getElementById('livestockTitle').textContent = `For Sale: ${livestockData.name}`;
+                document.getElementById('livestockType').textContent = livestockData.type || 'N/A';
+                document.getElementById('livestockQuantity').textContent = livestockData.quantity || 'NULL';
+                document.getElementById('livestockLocation').textContent = livestockData.location || 'Unknown';
+                document.getElementById('livestockPrice').textContent = livestockData.price.toLocaleString();
+                document.getElementById('livestockContact').textContent = livestockData.contact || 'N/A';
+                document.getElementById('livestockDescription').textContent = livestockData.description || 'No description available';
 
-                document.getElementById('listedDate').textContent = 'a day ago';
+                document.getElementById('listedDate').textContent = livestockData.createdAt
+                    ? getTimeAgo(livestockData.createdAt)
+                    : 'Unknown';
 
-                const imageName = livestock.imagePath ? livestock.imagePath.split('/').pop() : 'placeholder.jpg';
+                const imageName = livestockData.imagePath ? livestockData.imagePath.split('/').pop() : 'placeholder.jpg';
                 const imageUrl = `http://localhost:8090/livestock/images/${imageName}`;
                 document.getElementById('mainImage').src = imageUrl;
             } catch (error) {
@@ -152,8 +298,20 @@
         }
 
         fetchLivestockDetails();
+
+        // Redirect to cart.html when "Buying Options" is clicked
+        const buyButton = document.getElementById('buyButton');
+        buyButton.addEventListener('click', () => {
+            if (!livestockData) {
+                showToast('Please wait for livestock details to load.');
+                return;
+            }
+            window.location.href = `cart.html?id=${livestockId}`;
+        });
     });
 </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9346aca05d9cb910',t:'MTc0NTM0MTE5NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9346aca05d9cb910',t:'MTc0NTM0MTE5NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading' !==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9366bbe05d94d1b7',t:'MTc0NTY3NzM2My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading' !==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'936f1088cc124539',t:'MTc0NTc2NDcxNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading' !==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>

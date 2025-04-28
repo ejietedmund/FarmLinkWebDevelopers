@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="description" content="FarmLink - Your trusted platform for buying and selling livestock in Uganda.">
+    <meta name="keywords" content="FarmLink, livestock, Uganda, buy, sell, cattle, goats, sheep, pigs, poultry">
+    <meta name="author" content="FarmLink Team">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmLink - Cart</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="icon" type="image/png" href="http://localhost:8090/api/images/logo.png" sizes="64x64">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Cart Section */
+        .cart-section {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 60px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 30px;
+        }
+
+        .cart-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .cart-left img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .quantity-selector {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .quantity-selector button {
+            background-color: #2d572c;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .quantity-selector button:hover {
+            background-color: #1e3d1d;
+        }
+
+        .quantity-selector input {
+            width: 60px;
+            text-align: center;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .cart-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .cart-right h2 {
+            margin-bottom: 20px;
+            color: #2d572c;
+            font-size: 1.8rem;
+        }
+
+        .cart-right p {
+            margin: 10px 0;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .remaining-quantity {
+            color: #d62828;
+            font-weight: bold;
+        }
+
+        .total-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2d572c;
+        }
+
+        .buyer-details {
+            margin: 20px 0;
+        }
+
+        .buyer-details label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .buyer-details input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .confirm-button {
+            background-color: #ff9900;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .confirm-button:hover {
+            background-color: #cc7700;
+            transform: translateY(-2px);
+        }
+
+        .back-button {
+            background-color: #666;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .back-button:hover {
+            background-color: #555;
+            transform: translateY(-2px);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: none;
+            z-index: 1000;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .cart-section {
+                flex-direction: column;
+                padding: 15px;
+            }
+
+            .cart-left img {
+                max-width: 100%;
+            }
+
+            .cart-right {
+                align-items: center;
+                text-align: center;
+            }
+
+            .cart-right h2 {
+                font-size: 1.5rem;
+            }
+
+            .confirm-button, .back-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="http://localhost:8090/api/images/logo.png" alt="FarmLink Logo" class="logo-image">
+            </a>
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="browse_livestock.html" class="dropbtn active-parent">Browse Livestock <span class="arrow">▼</span></a>
+                    <ul class="dropdown-content">
+                        <li><a href="cattle.html">Cattle</a></li>
+                        <li><a href="goats.html">Goats</a></li>
+                        <li><a href="sheep.html">Sheep</a></li>
+                        <li><a href="pigs.html">Pigs</a></li>
+                        <li><a href="poultry.html">Poultry</a></li>
+                    </ul>
+                </li>
+                <li><a href="sell.html" class="sell-nav-button">Sell Livestock</a></li>
+                <li><a href="partners.html">Partners</a></li>
+                <li><a href="support_advice.html">Support & Advice</a></li>
+            </ul>
+            <div class="nav-actions" id="navActions">
+                <div class="search-container">
+                    <input type="text" class="search-bar" placeholder="Search for livestock (e.g. calves, pigs)" id="searchInput">
+                    <button class="search-button" id="searchButton"><i class="fas fa-search"></i></button>
+                </div>
+                <a href="about.html" class="nav-button">About Us</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<section class="cart-section">
+    <div class="cart-left">
+        <img id="basketImage" src="" alt="Livestock Image">
+        <div class="quantity-selector">
+            <button id="decreaseQty">-</button>
+            <input type="number" id="selectedQty" value="1" min="1">
+            <button id="increaseQty">+</button>
+        </div>
+    </div>
+    <div class="cart-right">
+        <div>
+            <h2>Purchase Basket</h2>
+            <p><strong>Type:</strong> <span id="basketType"></span></p>
+            <p><strong>Price per Unit:</strong> UGX <span id="basketPrice"></span></p>
+            <p class="remaining-quantity"><strong>Remaining Quantity:</strong> <span id="remainingQty"></span></p>
+            <p class="total-price"><strong>Total Price:</strong> UGX <span id="totalPrice"></span></p>
+            <div class="buyer-details">
+                <label for="buyerName">Your Name:</label>
+                <input type="text" id="buyerName" placeholder="Enter your name">
+                <label for="buyerEmail">Your Email:</label>
+                <input type="email" id="buyerEmail" placeholder="Enter your email">
+                <label for="buyerPhone">Your Phone:</label>
+                <input type="tel" id="buyerPhone" placeholder="Enter your phone">
+            </div>
+        </div>
+        <div>
+            <button class="confirm-button" id="confirmPurchase">Confirm Purchase</button>
+            <button class="back-button" id="backButton">Back to Listing</button>
+        </div>
+    </div>
+</section>
+
+<!-- Toast Notification -->
+<div id="toast" class="toast"></div>
+
+<script src="index.js"></script>
+<script>
+    let livestockData = null;
+    let selectedQty = 1;
+    let remainingQty = 0;
+    let pricePerUnit = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const navActions = document.getElementById('navActions');
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user && user.loggedIn) {
+            const logoutButton = document.createElement('a');
+            logoutButton.href = '#';
+            logoutButton.className = 'nav-button';
+            logoutButton.textContent = 'Logout';
+            logoutButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('user');
+                localStorage.removeItem('rememberedUsername');
+                window.location.href = 'index.html';
+            });
+            navActions.appendChild(logoutButton);
+        } else {
+            const loginButton = document.createElement('a');
+            loginButton.href = 'login.html';
+            loginButton.className = 'nav-button';
+            loginButton.textContent = 'Login';
+            navActions.appendChild(loginButton);
+
+            const registerButton = document.createElement('a');
+            registerButton.href = 'register.html';
+            registerButton.className = 'nav-button';
+            registerButton.textContent = 'Register';
+            navActions.appendChild(registerButton);
+
+            localStorage.setItem('redirectAfterLogin', window.location.href);
+            window.location.href = 'login.html';
+            return;
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const livestockId = urlParams.get('id');
+
+        if (!livestockId) {
+            document.querySelector('.cart-section').innerHTML = '<p>Error: No livestock ID provided.</p>';
+            return;
+        }
+
+        // Show toast notification
+        function showToast(message) {
+            const toast = document.getElementById("toast");
+            toast.textContent = message;
+            toast.style.display = "block";
+            setTimeout(() => {
+                toast.style.display = "none";
+            }, 3000);
+        }
+
+        // Fetch livestock details
+        async function fetchLivestockDetails() {
+            try {
+                const response = await fetch(`http://localhost:8090/livestock/${livestockId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                livestockData = await response.json();
+
+                if (!livestockData) {
+                    document.querySelector('.cart-section').innerHTML = '<p>Livestock not found.</p>';
+                    return;
+                }
+
+                // Populate cart page
+                const imageName = livestockData.imagePath ? livestockData.imagePath.split('/').pop() : 'placeholder.jpg';
+                const imageUrl = `http://localhost:8090/livestock/images/${imageName}`;
+                document.getElementById('basketImage').src = imageUrl;
+                document.getElementById('basketType').textContent = livestockData.type || 'N/A';
+                document.getElementById('basketPrice').textContent = livestockData.price.toLocaleString();
+                pricePerUnit = livestockData.price;
+                remainingQty = livestockData.quantity;
+                selectedQty = 1;
+                document.getElementById('selectedQty').value = selectedQty;
+                document.getElementById('remainingQty').textContent = remainingQty - selectedQty;
+                updateTotalPrice();
+
+                // Populate buyer details if available
+                const buyerNameInput = document.getElementById('buyerName');
+                const buyerEmailInput = document.getElementById('buyerEmail');
+                const buyerPhoneInput = document.getElementById('buyerPhone');
+                if (user && user.loggedIn) {
+                    buyerNameInput.value = user.username || '';
+                    buyerEmailInput.value = user.email || '';
+                    buyerPhoneInput.value = user.phone || '';
+                }
+            } catch (error) {
+                console.error('Error fetching livestock details:', error);
+                document.querySelector('.cart-section').innerHTML = '<p>Error loading livestock details. Please try again later.</p>';
+            }
+        }
+
+        fetchLivestockDetails();
+
+        // Cart Logic
+        const selectedQtyInput = document.getElementById('selectedQty');
+        const remainingQtySpan = document.getElementById('remainingQty');
+        const totalPriceSpan = document.getElementById('totalPrice');
+        const decreaseQtyBtn = document.getElementById('decreaseQty');
+        const increaseQtyBtn = document.getElementById('increaseQty');
+        const confirmPurchaseBtn = document.getElementById('confirmPurchase');
+        const backButton = document.getElementById('backButton');
+        const buyerNameInput = document.getElementById('buyerName');
+        const buyerEmailInput = document.getElementById('buyerEmail');
+        const buyerPhoneInput = document.getElementById('buyerPhone');
+
+        function updateTotalPrice() {
+            const total = pricePerUnit * selectedQty;
+            totalPriceSpan.textContent = total.toLocaleString();
+        }
+
+        function updateRemainingQty() {
+            remainingQtySpan.textContent = remainingQty - selectedQty;
+        }
+
+        decreaseQtyBtn.addEventListener('click', () => {
+            if (selectedQty > 1) {
+                selectedQty--;
+                selectedQtyInput.value = selectedQty;
+                updateRemainingQty();
+                updateTotalPrice();
+            }
+        });
+
+        increaseQtyBtn.addEventListener('click', () => {
+            if (selectedQty < remainingQty) {
+                selectedQty++;
+                selectedQtyInput.value = selectedQty;
+                updateRemainingQty();
+                updateTotalPrice();
+            } else {
+                showToast('Cannot select more than the available quantity.');
+            }
+        });
+
+        selectedQtyInput.addEventListener('input', () => {
+            let newQty = parseInt(selectedQtyInput.value);
+            if (isNaN(newQty) || newQty < 1) {
+                newQty = 1;
+            }
+            if (newQty > remainingQty) {
+                newQty = remainingQty;
+                showToast('Cannot select more than the available quantity.');
+            }
+            selectedQty = newQty;
+            selectedQtyInput.value = selectedQty;
+            updateRemainingQty();
+            updateTotalPrice();
+        });
+
+        confirmPurchaseBtn.addEventListener('click', async () => {
+            const buyerName = buyerNameInput.value.trim();
+            const buyerEmail = buyerEmailInput.value.trim();
+            const buyerPhone = buyerPhoneInput.value.trim();
+
+            if (!buyerName || !buyerEmail || !buyerPhone) {
+                showToast('Please fill in all buyer details.');
+                return;
+            }
+
+            if (!livestockId || !livestockData) {
+                showToast('Livestock data not loaded. Please try again.');
+                return;
+            }
+
+            const newQuantity = remainingQty - selectedQty;
+
+            try {
+                // Check JWT token
+                const jwtToken = localStorage.getItem('jwtToken');
+                if (!jwtToken) {
+                    showToast('Please log in again to confirm your purchase.');
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                // Determine user role from localStorage or default to 'USER'
+                const userRole = user.role && ['USER', 'ADMIN'].includes(user.role.toUpperCase()) ? user.role.toUpperCase() : 'USER';
+                if (userRole !== 'USER') {
+                    console.warn(`Expected role 'USER' for purchase, but found '${userRole}'. Proceeding as USER.`);
+                }
+
+                // Log request data for debugging
+                console.log('Updating livestock with ID:', livestockId);
+                console.log('Current livestockData:', livestockData);
+                console.log('New quantity:', newQuantity);
+
+                // If newQuantity is 0, skip the update and directly delete the listing
+                if (newQuantity === 0) {
+                    const deleteResponse = await fetch(`http://localhost:8090/livestock/${livestockId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Authorization': `Bearer ${jwtToken}`,
+                            'Role': 'ADMIN'
+                        }
+                    });
+
+                    if (!deleteResponse.ok) {
+                        const deleteErrorText = await deleteResponse.text();
+                        throw new Error(`Failed to delete listing. Status: ${deleteResponse.status}, Response: ${deleteErrorText}`);
+                    }
+                } else {
+                    // Update livestock quantity only if newQuantity > 0
+                    const updateResponse = await fetch(`http://localhost:8090/livestock/${livestockId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${jwtToken}`,
+                            'Role': 'ADMIN'
+                        },
+                        body: JSON.stringify({
+                            id: livestockId,
+                            type: livestockData.type,
+                            price: livestockData.price,
+                            quantity: newQuantity,
+                            location: livestockData.location,
+                            description: livestockData.description,
+                            contact: livestockData.contact,
+                            email: livestockData.email,
+                            name: livestockData.name,
+                            imagePath: livestockData.imagePath,
+                            createdAt: livestockData.createdAt
+                        })
+                    });
+
+                    if (!updateResponse.ok) {
+                        const errorText = await updateResponse.text();
+                        console.error(`Failed to update livestock quantity. Status: ${updateResponse.status}, Response: ${errorText}`);
+                        if (updateResponse.status === 401) {
+                            showToast('Session expired. Please log in again.');
+                            localStorage.removeItem('jwtToken');
+                            localStorage.removeItem('user');
+                            window.location.href = 'login.html';
+                            return;
+                        }
+                        throw new Error(`Failed to update livestock quantity. Status: ${updateResponse.status}, Response: ${errorText}`);
+                    }
+                }
+
+                // Notify buyer and seller
+                const totalPrice = pricePerUnit * selectedQty;
+                const buyerMessage = `Your order for ${selectedQty} ${livestockData.type}(s) has been placed successfully! Total: UGX ${totalPrice.toLocaleString()}. Seller Contact: ${livestockData.contact}`;
+                const sellerMessage = `A buyer (${buyerName}) has purchased ${selectedQty} ${livestockData.type}(s) from your listing. Total: UGX ${totalPrice.toLocaleString()}. Buyer Contact: ${buyerPhone}, Email: ${buyerEmail}`;
+
+                // Notify buyer via toast (as before)
+                showToast(buyerMessage);
+
+                // Send email to seller
+                const sellerEmailResponse = await fetch('http://localhost:8090/send-email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${jwtToken}`,
+                        'Role': 'USER'
+                    },
+                    body: JSON.stringify({
+                        from: 'ejiet.edmund@gmail.com',
+                        to: livestockData.email || 'seller@example.com',
+                        subject: `New Order for Your ${livestockData.type} Listing on FarmLink`,
+                        body: sellerMessage,
+                        recipientType: 'SELLER' // Indicate the recipient is the seller
+                    })
+                });
+
+                if (!sellerEmailResponse.ok) {
+                    console.error('Failed to send email notification to seller:', await sellerEmailResponse.text());
+                }
+
+                // Send email to buyer
+                const buyerEmailResponse = await fetch('http://localhost:8090/send-email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${jwtToken}`,
+                        'Role': 'USER'
+                    },
+                    body: JSON.stringify({
+                        from: 'ejiet.edmund@gmail.com',
+                        to: buyerEmail,
+                        subject: `Your Purchase Confirmation for ${livestockData.type} on FarmLink`,
+                        body: buyerMessage,
+                        recipientType: 'BUYER' // Indicate the recipient is the buyer
+                    })
+                });
+
+                if (!buyerEmailResponse.ok) {
+                    console.error('Failed to send email notification to buyer:', await buyerEmailResponse.text());
+                }
+
+                // Redirect based on whether the listing was deleted
+                if (newQuantity === 0) {
+                    showToast('Listing has been removed as quantity reached 0.');
+                    setTimeout(() => {
+                        window.location.href = 'browse_livestock.html';
+                    }, 2000);
+                } else {
+                    showToast('Purchase confirmed successfully!');
+                    setTimeout(() => {
+                        window.location.href = `buyer.html?id=${livestockId}`;
+                    }, 2000);
+                }
+            } catch (error) {
+                console.error('Error confirming purchase:', error);
+                showToast('Failed to confirm purchase: ' + error.message);
+            }
+        });
+
+        backButton.addEventListener('click', () => {
+            window.location.href = `buyer.html?id=${livestockId}`;
+        });
+    });
+</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93752d8f7982bce6',t:'MTc0NTgyODgyMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading' !==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
+</html>

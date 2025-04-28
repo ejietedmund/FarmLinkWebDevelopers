@@ -1,43 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="description" content="FarmLink - Browse Sheep for sale in Uganda.">
-    <meta name="keywords" content="FarmLink, livestock, Uganda, sheep, buy, sell">
+    <meta name="description" content="FarmLink - Your trusted platform for buying and selling livestock in Uganda.">
+    <meta name="keywords" content="FarmLink, livestock, Uganda, buy, sell, cattle, goats, sheep, pigs, poultry">
     <meta name="author" content="FarmLink Team">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FarmLink - Pigs</title>
+    <title>FarmLink-Pigs</title>
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="icon" type="image/png" href="http://localhost:8090/api/images/logo.png" sizes="64x64">
 </head>
 <body data-livestock-type="Pigs">
 <header>
     <nav class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="logo">FarmLink</a>
+            <a href="index.html" class="logo">
+                <img src="http://localhost:8090/api/images/logo.png" alt="FarmLink Logo" class="logo-image">
+            </a>
             <ul class="nav-links">
                 <li class="dropdown">
                     <a href="browse_livestock.html" class="dropbtn active-parent">Browse Livestock <span class="arrow">▼</span></a>
                     <ul class="dropdown-content">
                         <li><a href="cattle.html">Cattle</a></li>
                         <li><a href="goats.html">Goats</a></li>
-                        <li><a href="sheep.html" >Sheep</a></li>
-                        <li><a href="pigs.html" class="active">Pigs</a></li>
+                        <li><a href="sheep.html">Sheep</a></li>
+                        <li><a href="pigs.html">Pigs</a></li>
                         <li><a href="poultry.html">Poultry</a></li>
                     </ul>
                 </li>
                 <li><a href="sell.html" class="sell-nav-button">Sell Livestock</a></li>
                 <li><a href="partners.html">Partners</a></li>
-                <li><a href="support_device.html">Support & Advice</a></li>
+                <li><a href="support_advice.html">Support & Advice</a></li>
             </ul>
-            <div class="nav-actions">
+            <div class="nav-actions" id="navActions">
                 <div class="search-container">
                     <input type="text" class="search-bar" placeholder="Search for livestock (e.g. calves, pigs)" id="searchInput">
                     <button class="search-button" id="searchButton"><i class="fas fa-search"></i></button>
                 </div>
                 <a href="about.html" class="nav-button">About Us</a>
-                <a href="login.html" class="nav-button">Login</a>
-                <a href="register.html" class="nav-button">Register</a>
             </div>
         </div>
     </nav>

@@ -1,7 +1,7 @@
 package com.example.farmlink.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
+//import jakarta.validation.constraints.Min;
 import java.sql.Timestamp;
 
 @Entity
@@ -27,7 +27,7 @@ public class Livestock {
     private Double price;
 
     @Column(nullable = false)
-    @Min(value = 1, message = "Quantity must be at least 1")
+//    @Min(value = 1, message = "Quantity must be at least 1")
     private Integer quantity;
 
     @Column(nullable = false)

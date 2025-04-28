@@ -1,4 +1,5 @@
 .dropdown .dropbtn {
+    padding:20px;
     cursor: pointer;
     color: #f4c182;/*  Light orange text color */
 }

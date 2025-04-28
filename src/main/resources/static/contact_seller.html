@@ -13,7 +13,9 @@
         }
 
         body {
-            background-color: #f5f5f5;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+                        url('http://localhost:8090/api/images/bg_image3.jpeg') no-repeat center center fixed;
+            background-size: cover;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -95,18 +97,21 @@
             font-size: 0.9rem;
         }
 
-        textarea {
+        input, textarea {
             width: 100%;
             padding: 12px;
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 1rem;
-            resize: vertical;
-            min-height: 120px;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        textarea:focus {
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        input:focus, textarea:focus {
             border-color: #165016;
             box-shadow: 0 0 0 3px rgba(22, 80, 22, 0.1);
             outline: none;
@@ -188,11 +193,9 @@
     <!-- Loading State -->
     <div class="loading" id="loading">Loading...</div>
 
-    <!-- Buyer and Seller Details -->
+    <!-- Seller Details -->
     <div class="details-section" id="detailsSection" style="display: none;">
         <h2>Details</h2>
-        <p><strong>Buyer Name:</strong> <span id="buyerName"></span></p>
-        <p><strong>Buyer Email:</strong> <span id="buyerEmail"></span></p>
         <p><strong>Seller Contact:</strong> <span id="sellerContact"></span></p>
         <p><strong>Seller Email:</strong> <span id="sellerEmail"></span></p>
     </div>
@@ -208,6 +211,10 @@
     <div class="contact-section" id="emailSection" style="display: none;">
         <h2>Send an Email</h2>
         <form id="emailForm" class="email-form">
+            <label for="buyerName">Your Name:</label>
+            <input type="text" id="buyerName" placeholder="Enter your name" required>
+            <label for="buyerEmail">Your Email:</label>
+            <input type="email" id="buyerEmail" placeholder="Enter your email" required>
             <label for="message">Your Message:</label>
             <textarea id="message" placeholder="Type your message here..." required></textarea>
             <button type="button" class="send-btn" onclick="sendEmail()">Send Email</button>
@@ -249,7 +256,7 @@
         emailSection.style.display = isLoading ? "none" : "block";
     }
 
-    // Fetch buyer and seller details
+    // Fetch seller details
     async function loadDetails() {
         if (!livestockId) {
             showToast("Error: No livestock ID provided.");
@@ -259,21 +266,6 @@
 
         setLoading(true);
         try {
-            // Fetch buyer details
-            const buyerResponse = await fetch("http://localhost:8090/users/me", {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`
-                }
-            });
-            if (!buyerResponse.ok) {
-                throw new Error(`Failed to fetch buyer details: ${buyerResponse.status}`);
-            }
-            const buyer = await buyerResponse.json();
-            document.getElementById("buyerName").textContent = buyer.username || 'Unknown';
-            document.getElementById("buyerEmail").textContent = buyer.email || 'Unknown';
-
             // Fetch livestock (seller) details
             const livestockResponse = await fetch(`http://localhost:8090/livestock/all`, {
                 method: 'GET',
@@ -325,15 +317,17 @@
 
     // Send email to the seller
     async function sendEmail() {
+        const buyerName = document.getElementById("buyerName").value.trim();
+        const buyerEmail = document.getElementById("buyerEmail").value.trim();
         const message = document.getElementById("message").value.trim();
-        if (!message) {
-            showToast("Please enter a message.");
+
+        if (!buyerName || !buyerEmail || !message) {
+            showToast("Please fill in all fields.");
             return;
         }
 
         setLoading(true);
         try {
-            const buyerEmail = document.getElementById("buyerEmail").textContent;
             const response = await fetch("http://localhost:8090/send-email", {
                 method: 'POST',
                 headers: {
@@ -343,7 +337,7 @@
                 body: JSON.stringify({
                     from: buyerEmail,
                     to: sellerEmail,
-                    subject: "Inquiry About Your Livestock Listing on FarmLink",
+                    subject: `Inquiry About Your Livestock Listing on FarmLink from ${buyerName}`,
                     body: message
                 })
             });
@@ -354,6 +348,8 @@
             }
 
             showToast("Email sent successfully!");
+            document.getElementById("buyerName").value = "";
+            document.getElementById("buyerEmail").value = "";
             document.getElementById("message").value = "";
         } catch (error) {
             console.error("Error sending email:", error);
@@ -371,7 +367,6 @@
     // Load details when the page loads
     document.addEventListener('DOMContentLoaded', loadDetails);
 </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9358e79208dddd25',t:'MTc0NTUzMjM1Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'935ddf1a8fc3bcef',t:'MTc0NTU4NDQzNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9364f5663eadeba6',t:'MTc0NTY1ODc0OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'936ee93d2e956773',t:'MTc0NTc2MzEwNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
 </html>

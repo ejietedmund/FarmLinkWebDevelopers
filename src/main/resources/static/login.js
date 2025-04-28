@@ -17,18 +17,29 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
         if (response.ok) {
             messageDiv.textContent = 'Login successful!';
             messageDiv.style.color = 'green';
-            localStorage.setItem('jwtToken', result.token);
-            localStorage.setItem('user', JSON.stringify({ loggedIn: true, username }));
+            localStorage.setItem('user', JSON.stringify({ loggedIn: true, username, role: result.role })); // Store role
             if (rememberMe) {
                 localStorage.setItem('rememberedUsername', username);
             } else {
                 localStorage.removeItem('rememberedUsername');
             }
+            if(result.role === 'ADMIN'){
+                setTimeout(() => window.location.href = 'http://localhost:8090/admin.html', 1000);
+                localStorage.removeItem('role');
+
+
+            }
+            else{
             const redirectUrl = localStorage.getItem('redirectAfterLogin') || 'index.html';
-            localStorage.removeItem('redirectAfterLogin');
-            setTimeout(() => window.location.href = redirectUrl, 1000);
+                                    localStorage.removeItem('redirectAfterLogin');
+                                    setTimeout(() => window.location.href = redirectUrl, 1000);
+            }
+
+
+
+
         } else {
-            messageDiv.textContent = result.message || 'Invalid username or password';
+            messageDiv.textContent = result.error || 'Invalid username or password';
             messageDiv.style.color = 'red';
         }
     } catch (error) {

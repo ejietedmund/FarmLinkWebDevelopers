@@ -42,26 +42,36 @@ body {
 }
 
 .logo {
-    font-size: 1.5rem; /* 24px */
-    color: white;
-    font-weight: bold;
+    display: flex;
+    align-items: center;
     text-decoration: none;
+}
+
+.logo-image {
+    height: 50px; /* Increased from 40px to 50px */
+    width: auto;
+    object-fit: contain;
 }
 
 .nav-links {
     list-style: none;
     display: flex;
+    align-items: center; /* Ensure vertical centering of all links */
     gap: 1rem;
 }
 
 .nav-links li {
-    margin: 0 0.9375rem; /* 15px */
+    margin: 0; /* Remove margin to prevent misalignment */
 }
 
 .nav-links a {
     color: white;
     text-decoration: none;
     font-size: 1rem; /* 16px */
+    padding: 0.5rem 0.75rem; /* Standardize padding for consistency */
+    line-height: 1; /* Ensure consistent line height */
+    display: inline-flex; /* Use flex to center text vertically */
+    align-items: center; /* Vertically center text within the link */
     transition: var(--transition);
 }
 
@@ -70,9 +80,17 @@ body {
 }
 
 /* Dropdown Menu */
+.dropdown {
+    position: relative; /* Ensure dropdown positioning doesn’t affect alignment */
+}
+
 .dropdown .dropbtn {
     cursor: pointer;
     color: #f4c182; /* Light orange text color */
+    padding: 0.5rem 0.75rem; /* Match other links */
+    line-height: 1; /* Match other links */
+    display: inline-flex; /* Ensure consistent alignment */
+    align-items: center; /* Vertically center text and arrow */
 }
 
 .dropdown-content {
@@ -84,6 +102,8 @@ body {
     border-radius: var(--border-radius);
     padding: 0.625rem 0; /* 10px */
     z-index: 10;
+    top: 100%; /* Position below the parent link */
+    left: 0;
 }
 
 .dropdown-content li {
@@ -804,6 +824,10 @@ footer {
 
     .image-gallery #mainImage {
         height: 18.75rem; /* 300px */
+    }
+
+    .logo-image {
+        height: 40px; /* Increased from 30px to 40px for mobile */
     }
 }
 
